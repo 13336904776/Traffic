@@ -33,7 +33,7 @@ public class LoginActivity extends BaseActivity {
 
     private void init_UI() {
         //获得实例对象
-        spUtil=new SharedPreferencesUtil("userInfo",this);
+        spUtil=SharedPreferencesUtil.getInstance(this);
         username=findViewById(R.id.username);
         password=findViewById(R.id.password);
         remember_password=findViewById(R.id.remember_password);
@@ -60,8 +60,8 @@ public class LoginActivity extends BaseActivity {
                 //跳转界面
                 TimerTask task = new TimerTask(){
                     public void run(){
-                        startActivity(new Intent(LoginActivity.this,WelcomeActivity.class));
-                        finish();
+                        startActivity(new Intent(LoginActivity.this,UserActivity.class));
+                        LoginActivity.this.finish();
                     }
                 };
                 Timer timer = new Timer();
@@ -87,8 +87,8 @@ public class LoginActivity extends BaseActivity {
                         spUtil.putSP("PASSWORD", passwordValue);
                     }
                     //跳转界面
-                    startActivity(new Intent(LoginActivity.this,WelcomeActivity.class));
-                    finish();
+                    startActivity(new Intent(LoginActivity.this,UserActivity.class));
+                    LoginActivity.this.finish();
 
                 }else{
                     Toast.makeText(LoginActivity.this,"用户名或密码错误，请重新登录", Toast.LENGTH_LONG).show();

@@ -5,15 +5,14 @@ import android.content.SharedPreferences;
 
 public class SharedPreferencesUtil {
 
-    private String mTAG;
+    private String mTAG="appDate";
     // 创建一个写入器
     private static SharedPreferences mPreferences;
     private static SharedPreferences.Editor mEditor;
     private static SharedPreferencesUtil mSharedPreferencesUtil;
 
     // 构造方法
-    public SharedPreferencesUtil(String mTAG,Context context) {
-        this.mTAG=mTAG;
+    public SharedPreferencesUtil(Context context) {
         mPreferences = context.getSharedPreferences(mTAG, Context.MODE_PRIVATE);
         mEditor = mPreferences.edit();
     }
@@ -21,13 +20,13 @@ public class SharedPreferencesUtil {
     // 单例模式
     public static SharedPreferencesUtil getInstance(Context context) {
         if (mSharedPreferencesUtil == null) {
-            mSharedPreferencesUtil = new SharedPreferencesUtil("share_date",context);
+            mSharedPreferencesUtil = new SharedPreferencesUtil(context);
         }
         return mSharedPreferencesUtil;
     }
 
     // 存入数据
-    public void putSP(String key, Object  value) {
+    public void putSP(String key, Object value) {
         String type = value.getClass().getSimpleName();
         if("String".equals(type)){
             mEditor.putString(key, (String)value);
@@ -48,7 +47,7 @@ public class SharedPreferencesUtil {
     }
 
     // 获取数据
-    public Object getSP(String key,Object  value) {
+    public Object getSP(String key,Object value) {
         String type = value.getClass().getSimpleName();
         if("String".equals(type)){
             return mPreferences.getString(key, (String)value);

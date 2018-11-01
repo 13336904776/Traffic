@@ -34,9 +34,8 @@ public class WelcomeActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome);
         //在setContentView()前检查是否第一次运行
-
-        spUtil=new SharedPreferencesUtil("welcomeInfo",this);
-        if ((Boolean)spUtil.getSP("IsFirstTimeLaunch",false)) {
+        spUtil=SharedPreferencesUtil.getInstance(this);
+        if (!(Boolean)spUtil.getSP("IsFirstTimeLaunch",true)) {
             launchHomeScreen();
             finish();
         }
@@ -115,7 +114,7 @@ public class WelcomeActivity extends BaseActivity {
     private void launchHomeScreen() {
         spUtil.putSP("IsFirstTimeLaunch",false);
         startActivity(new Intent(this, LoginActivity.class));
-        finish();
+        WelcomeActivity.this.finish();
     }
 
     /**
