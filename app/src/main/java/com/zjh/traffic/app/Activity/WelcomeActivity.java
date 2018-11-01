@@ -28,14 +28,15 @@ public class WelcomeActivity extends BaseActivity {
     private TextView[] dots;
     private List<View> layouts;
     private Button btnSkip, btnNext;
-    private SharedPreferencesUtil prefManager;
+    private SharedPreferencesUtil spUtil;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome);
         //在setContentView()前检查是否第一次运行
-        prefManager = new SharedPreferencesUtil(this);
-        if (!prefManager.isFirstTimeLaunch()) {
+
+        spUtil=new SharedPreferencesUtil("welcomeInfo",this);
+        if ((Boolean)spUtil.getSP("IsFirstTimeLaunch",false)) {
             launchHomeScreen();
             finish();
         }
@@ -112,7 +113,7 @@ public class WelcomeActivity extends BaseActivity {
     }
 
     private void launchHomeScreen() {
-        prefManager.setFirstTimeLaunch(false);
+        spUtil.putSP("IsFirstTimeLaunch",false);
         startActivity(new Intent(this, LoginActivity.class));
         finish();
     }

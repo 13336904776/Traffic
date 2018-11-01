@@ -4,29 +4,73 @@ import android.content.Context;
 import android.content.SharedPreferences;
 
 public class SharedPreferencesUtil {
-    SharedPreferences pref;
-    SharedPreferences.Editor editor;
-    Context _context;
 
-    int PRIVATE_MODE = 0;
+    private String mTAG;
+    // 创建一个写入器
+    private static SharedPreferences mPreferences;
+    private static SharedPreferences.Editor mEditor;
+    private static SharedPreferencesUtil mSharedPreferencesUtil;
 
-    //SharedPreferences 文件名
-    private static final String PREF_NAME = "intro_slider";
-
-    private static final String IS_FIRST_TIME_LAUNCH = "IsFirstTimeLaunch";
-
-    public SharedPreferencesUtil(Context context) {
-        this._context = context;
-        pref = _context.getSharedPreferences(PREF_NAME, PRIVATE_MODE);
-        editor = pref.edit();
+    // 构造方法
+    public SharedPreferencesUtil(String mTAG,Context context) {
+        this.mTAG=mTAG;
+        mPreferences = context.getSharedPreferences(mTAG, Context.MODE_PRIVATE);
+        mEditor = mPreferences.edit();
     }
 
-    public void setFirstTimeLaunch(boolean isFirstTime) {
-        editor.putBoolean(IS_FIRST_TIME_LAUNCH, isFirstTime);
-        editor.commit();
+    // 单例模式
+    public static SharedPreferencesUtil getInstance(Context context) {
+        if (mSharedPreferencesUtil == null) {
+            mSharedPreferencesUtil = new SharedPreferencesUtil("share_date",context);
+        }
+        return mSharedPreferencesUtil;
     }
 
-    public boolean isFirstTimeLaunch() {
-        return pref.getBoolean(IS_FIRST_TIME_LAUNCH, true);
+    // 存入数据
+    public void putSP(String key, Object  value) {
+        String type = value.getClass().getSimpleName();
+        if("String".equals(type)){
+            mEditor.putString(key, (String)value);
+        }
+        else if("Integer".equals(type)){
+            mEditor.putInt(key, (Integer)value);
+        }
+        else if("Boolean".equals(type)){
+            mEditor.putBoolean(key, (Boolean)value);
+        }
+        else if("Float".equals(type)){
+            mEditor.putFloat(key, (Float)value);
+        }
+        else if("Long".equals(type)){
+            mEditor.putLong(key, (Long)value);
+        }
+        mEditor.commit();
+    }
+
+    // 获取数据
+    public Object getSP(String key,Object  value) {
+        String type = value.getClass().getSimpleName();
+        if("String".equals(type)){
+            return mPreferences.getString(key, (String)value);
+        }
+        else if("Integer".equals(type)){
+            return mPreferences.getInt(key, (Integer)value);
+        }
+        else if("Boolean".equals(type)){
+            return mPreferences.getBoolean(key, (Boolean)value);
+        }
+        else if("Float".equals(type)){
+            return mPreferences.getFloat(key, (Float)value);
+        }
+        else if("Long".equals(type)){
+            return mPreferences.getLong(key, (Long)value);
+        }
+        return null;
+    }
+
+    // 移除数据
+    public void removeSP(String key) {
+        mEditor.remove(key);
+        mEditor.commit();
     }
 }

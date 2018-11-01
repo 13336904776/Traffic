@@ -44,6 +44,7 @@
         android:layout_marginTop="20dp"
         android:layout_height="wrap_content">
         <android.support.v7.widget.AppCompatCheckBox
+            android:id="@+id/remember_password"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
         <TextView
@@ -54,6 +55,7 @@
             android:text="记住密码"/>
 
         <android.support.v7.widget.AppCompatCheckBox
+            android:id="@+id/auto_login"
             android:layout_width="wrap_content"
             android:layout_marginLeft="50dp"
             android:layout_height="wrap_content" />
@@ -71,10 +73,12 @@
         android:gravity="center"
         android:layout_height="wrap_content">
         <Button
+            android:id="@+id/btn_login"
             android:layout_width="120dp"
             android:layout_height="wrap_content"
             android:text="登录"/>
         <Button
+            android:id="@+id/btn_register"
             android:layout_width="120dp"
             android:layout_marginLeft="50dp"
             android:layout_height="wrap_content"
