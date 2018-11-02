@@ -29,13 +29,14 @@ public class WelcomeActivity extends BaseActivity {
     private List<View> layouts;
     private Button btnSkip, btnNext;
     private SharedPreferencesUtil spUtil;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome);
         //在setContentView()前检查是否第一次运行
-        spUtil=SharedPreferencesUtil.getInstance(this);
-        if (!(Boolean)spUtil.getSP("IsFirstTimeLaunch",true)) {
+        spUtil = SharedPreferencesUtil.getInstance(this);
+        if (!(Boolean) spUtil.getSP("IsFirstTimeLaunch", true)) {
             launchHomeScreen();
             finish();
         }
@@ -54,7 +55,7 @@ public class WelcomeActivity extends BaseActivity {
         dotsLayout = findViewById(R.id.layoutDots);
         btnNext = findViewById(R.id.btn_next);
         btnSkip = findViewById(R.id.btn_skip);
-        layouts=new ArrayList<>();
+        layouts = new ArrayList<>();
         LayoutInflater inflater = LayoutInflater.from(this);
         //添加欢迎页面
         layouts.add(inflater.inflate(R.layout.welcome_slide1, null));
@@ -66,7 +67,7 @@ public class WelcomeActivity extends BaseActivity {
         //让状态栏透明
         changeStatusBarColor();
 
-        myViewPagerAdapter = new ViewPagerAdapter(layouts,this);
+        myViewPagerAdapter = new ViewPagerAdapter(layouts, this);
         viewPager.setAdapter(myViewPagerAdapter);
         viewPager.addOnPageChangeListener(viewPagerPageChangeListener);
 
@@ -89,6 +90,7 @@ public class WelcomeActivity extends BaseActivity {
             }
         });
     }
+
     private void addBottomDots(int currentPage) {
         dots = new TextView[layouts.size()];
 
@@ -112,7 +114,7 @@ public class WelcomeActivity extends BaseActivity {
     }
 
     private void launchHomeScreen() {
-        spUtil.putSP("IsFirstTimeLaunch",false);
+        spUtil.putSP("IsFirstTimeLaunch", false);
         startActivity(new Intent(this, LoginActivity.class));
         WelcomeActivity.this.finish();
     }
