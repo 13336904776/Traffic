@@ -4,6 +4,7 @@
     package="com.zjh.traffic">
 
     <application
+        android:name=".app.Application.App"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"

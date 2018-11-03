@@ -1,5 +1,6 @@
 package com.zjh.traffic.app.Activity;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -7,26 +8,28 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import com.zjh.traffic.R;
-import com.zjh.traffic.app.Util.SharedPreferencesUtil;
+import com.zjh.traffic.app.Application.App;
 
-import java.util.Timer;
-import java.util.TimerTask;
+import static java.lang.Thread.sleep;
 
-public class LoginActivity extends BaseActivity {
+public class LoginActivity extends BaseActivity implements View.OnClickListener {
 
     private EditText username, password;
     private String userNameValue, passwordValue;
-    private CheckBox remember_password, auto_login;
+    private CheckBox rememberPassword, autoLogin;
     private Button btn_login, btn_register;
-    private SharedPreferencesUtil spUtil;
+    private ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        //取消标题栏
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().hide();
+        }
         init_UI();
         is_login();
         ClickListener();
@@ -34,97 +37,111 @@ public class LoginActivity extends BaseActivity {
 
     private void init_UI() {
         //获得实例对象
-        spUtil = SharedPreferencesUtil.getInstance(this);
         username = findViewById(R.id.username);
         password = findViewById(R.id.password);
-        remember_password = findViewById(R.id.remember_password);
-        auto_login = findViewById(R.id.auto_login);
+        rememberPassword = findViewById(R.id.remember_password);
+        autoLogin = findViewById(R.id.auto_login);
         btn_login = findViewById(R.id.btn_login);
         btn_register = findViewById(R.id.btn_register);
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setTitle("登陆");
+        progressDialog.setMessage("登陆中");
+        progressDialog.setCancelable(false);
     }
 
     public void is_login() {
         //判断记住密码多选框的状态
-        if ((Boolean) spUtil.getSP("ISCHECK", false)) {
+        if (App.isRememberPassword()) {
             //设置默认是记录密码状态
-            remember_password.setChecked(true);
-
-            username.setText((String) spUtil.getSP("USER_NAME", ""));
-            password.setText((String) spUtil.getSP("PASSWORD", ""));
+            rememberPassword.setChecked(true);
+            username.setText(App.getUserName());
+            password.setText(App.getPassword());
             //判断自动登陆多选框状态
-            if ((Boolean) spUtil.getSP("AUTO_ISCHECK", false)) {
+            if (App.isAutoLogin() && isPassword("admin", "admin")) {
                 //设置默认是自动登录状态
-                auto_login.setChecked(true);
-                Toast.makeText(this, "正在登录中", Toast.LENGTH_SHORT).show();
-                //跳转界面
-                TimerTask task = new TimerTask() {
-                    public void run() {
-                        startActivity(new Intent(LoginActivity.this, UserActivity.class));
-                        LoginActivity.this.finish();
-                    }
-                };
-                Timer timer = new Timer();
-                timer.schedule(task, 3000);
+                autoLogin.setChecked(true);
+                startIntent();
             }
         }
     }
 
     private void ClickListener() {
-        btn_login.setOnClickListener(new View.OnClickListener() {
-
-            public void onClick(View v) {
-                userNameValue = username.getText().toString();
-                passwordValue = password.getText().toString();
-
-                if (userNameValue.equals("admin") && passwordValue.equals("admin")) {
-                    Toast.makeText(LoginActivity.this, "登录成功", Toast.LENGTH_SHORT).show();
-                    //登录成功和记住密码框为选中状态才保存用户信息
-                    if (remember_password.isChecked()) {
-                        //记住用户名、密码
-                        spUtil.putSP("USER_NAME", userNameValue);
-                        spUtil.putSP("PASSWORD", passwordValue);
-                    }
-                    //跳转界面
-                    startActivity(new Intent(LoginActivity.this, UserActivity.class));
-                    LoginActivity.this.finish();
-
-                } else {
-                    Toast.makeText(LoginActivity.this, "用户名或密码错误，请重新登录", Toast.LENGTH_LONG).show();
-                }
-
-            }
-        });
-
         //监听记住密码多选框按钮事件
-        remember_password.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        rememberPassword.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (remember_password.isChecked()) {
+                if (rememberPassword.isChecked())
                     //记住密码已选中
-                    spUtil.putSP("ISCHECK", true);
-
-                } else {
+                    App.setRememberPassword(true);
+                else
                     ///记住密码没有选中
-                    spUtil.putSP("ISCHECK", false);
-
-                }
-
+                    App.setRememberPassword(false);
             }
         });
-
         //监听自动登录多选框事件
-        auto_login.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        autoLogin.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (auto_login.isChecked()) {
+                if (autoLogin.isChecked()) {
                     //自动登录已选中
-                    remember_password.setChecked(true);
-                    spUtil.putSP("AUTO_ISCHECK", true);
+                    rememberPassword.setChecked(true);
+                    App.setAutoLogin(true);
 
-                } else {
+                } else
                     //自动登录没有选中
-                    spUtil.putSP("AUTO_ISCHECK", false);
-                }
+                    App.setAutoLogin(false);
             }
         });
+        btn_login.setOnClickListener(this);
+        btn_register.setOnClickListener(this);
+    }
 
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.btn_login:
+                if (isPassword("admin", "admin")) {
+                    //登录成功和记住密码框为选中状态才保存用户信息
+                    if (rememberPassword.isChecked()) {
+                        //记住用户名、密码
+                        App.setUserName(userNameValue);
+                        App.setPassword(passwordValue);
+                    }
+                    startIntent();
+                } else {
+                    password.setText("");
+                    autoLogin.setChecked(false);
+                    rememberPassword.setChecked(false);
+                    App.showAlertDialog(this, "提醒", "用户名或密码错误，请重新登录");
+                }
+                break;
+            case R.id.btn_register:
+                break;
+        }
+    }
+
+    //登陆成功跳转
+    private void startIntent() {
+        progressDialog.show();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    sleep(2000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                //跳转界面
+                progressDialog.dismiss();
+                startActivity(new Intent(LoginActivity.this, UserActivity.class));
+                LoginActivity.this.finish();
+            }
+        }).start();
+    }
+
+    //判断账号密码是否正确
+    private boolean isPassword(String _userName, String _password) {
+        userNameValue = username.getText().toString();
+        passwordValue = password.getText().toString();
+        return (userNameValue.equals(_userName) && passwordValue.equals(_password));
     }
 }

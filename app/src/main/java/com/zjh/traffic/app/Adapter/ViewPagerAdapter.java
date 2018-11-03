@@ -17,14 +17,12 @@ public class ViewPagerAdapter extends PagerAdapter {
         this.context = context;
     }
 
-
     // 移除一个view
     @Override
     public void destroyItem(ViewGroup container, int position, Object object) {
         //super.destroyItem(container, position, object);
         container.removeView(views.get(position));
     }
-
 
     // 加载一个view
     @Override
