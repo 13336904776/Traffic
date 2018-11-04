@@ -127,7 +127,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                 }
                 //跳转界面
                 progressDialog.dismiss();
-                startActivity(new Intent(LoginActivity.this, AccountActivity.class));
+                startActivity(new Intent(LoginActivity.this, MainActivity.class));
                 LoginActivity.this.finish();
             }
         }).start();
