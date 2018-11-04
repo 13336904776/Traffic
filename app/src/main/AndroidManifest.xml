@@ -24,9 +24,8 @@
         <activity
             android:name=".app.Activity.LoginActivity"
             android:screenOrientation="landscape" />
-        <activity
-            android:name=".app.Activity.UserActivity"
-            android:screenOrientation="landscape" />
+        <activity android:name=".app.Activity.AccountActivity"
+            android:screenOrientation="landscape"/>
     </application>
 
 </manifest>
