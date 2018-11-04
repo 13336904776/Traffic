@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="center"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <EditText
+        android:id="@+id/re_username"
+        android:layout_width="400dp"
+        android:layout_height="50dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="50dp"
+        android:background="@drawable/bg_edittext_selector"
+        android:gravity="center"
+        android:hint="请输入用户名"
+        android:imeOptions="actionNext"
+        android:nextFocusForward="@+id/re_password"
+        android:singleLine="true" />
+
+    <EditText
+        android:id="@+id/re_password"
+        android:layout_width="400dp"
+        android:layout_height="50dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/bg_edittext_selector"
+        android:gravity="center"
+        android:hint="请输入密码"
+        android:imeOptions="actionNext"
+        android:inputType="textPassword"
+        android:nextFocusForward="@+id/re_again_password"
+        android:singleLine="true" />
+
+    <EditText
+        android:id="@+id/re_again_password"
+        android:layout_width="400dp"
+        android:layout_height="50dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/bg_edittext_selector"
+        android:gravity="center"
+        android:hint="请再次输入密码"
+        android:imeOptions="actionDone"
+        android:inputType="textPassword"
+        android:singleLine="true" />
+
+    <Button
+        android:id="@+id/re_btn"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_margin="10dp"
+        android:background="#ffffff"
+        android:text="注册" />
+</LinearLayout>

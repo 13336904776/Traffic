@@ -11,6 +11,7 @@ import android.widget.EditText;
 
 import com.zjh.traffic.R;
 import com.zjh.traffic.app.Application.App;
+import com.zjh.traffic.app.Dialog.RegisterDialog;
 
 import static java.lang.Thread.sleep;
 
@@ -57,11 +58,14 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
             username.setText(App.getUserName());
             password.setText(App.getPassword());
             //判断自动登陆多选框状态
-            if (App.isAutoLogin() && isPassword("admin", "admin")) {
+            if (App.isAutoLogin() && isPassword(App.getUserName(), App.getPassword())) {
                 //设置默认是自动登录状态
                 autoLogin.setChecked(true);
                 startIntent();
             }
+        } else {
+            if (!App.getUserName().equals(""))
+                username.setText(App.getUserName());
         }
     }
 
@@ -99,15 +103,9 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_login:
-                if (isPassword("admin", "admin")) {
-                    //登录成功和记住密码框为选中状态才保存用户信息
-                    if (rememberPassword.isChecked()) {
-                        //记住用户名、密码
-                        App.setUserName(userNameValue);
-                        App.setPassword(passwordValue);
-                    }
+                if (isPassword(App.getUserName(), App.getPassword()))
                     startIntent();
-                } else {
+                else {
                     password.setText("");
                     autoLogin.setChecked(false);
                     rememberPassword.setChecked(false);
@@ -115,6 +113,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                 }
                 break;
             case R.id.btn_register:
+                new RegisterDialog().show(getSupportFragmentManager(), "Register");
                 break;
         }
     }
@@ -142,6 +141,6 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
     private boolean isPassword(String _userName, String _password) {
         userNameValue = username.getText().toString();
         passwordValue = password.getText().toString();
-        return (userNameValue.equals(_userName) && passwordValue.equals(_password));
+        return (userNameValue.equals(_userName) && passwordValue.equals(_password) && !_userName.equals("") && !_password.equals(""));
     }
 }
