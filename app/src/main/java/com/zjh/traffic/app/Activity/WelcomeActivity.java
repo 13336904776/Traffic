@@ -38,10 +38,6 @@ public class WelcomeActivity extends BaseActivity {
             launchHomeScreen();
             finish();
         }
-        //取消标题栏
-        if (getSupportActionBar() != null) {
-            getSupportActionBar().hide();
-        }
         //让状态栏透明
         if (Build.VERSION.SDK_INT >= 21) {
             getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);

@@ -9,5 +9,9 @@ public class BaseActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+        //取消标题栏
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().hide();
+        }
     }
 }
