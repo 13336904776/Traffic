@@ -17,6 +17,7 @@ import com.zjh.traffic.app.Adapter.MyBaseAdapter;
 import com.zjh.traffic.app.Application.App;
 import com.zjh.traffic.app.Bean.carListBean;
 import com.zjh.traffic.app.Callback.OnResponseListener;
+import com.zjh.traffic.app.Dialog.RechargeDialog;
 import com.zjh.traffic.app.Request.GetCarAccountBalanceRequest;
 
 import java.util.ArrayList;
@@ -33,6 +34,7 @@ public class AccountFragment extends Fragment {
     private String[] plate = {"辽A10001", "辽A10002", "辽A10003", "辽A10004"};
     private String[] name = {"张三", "李四", "王五", "赵六"};
     private String[] balance = {"(查询中)", "(查询中)", "(查询中)", "(查询中)"};
+    private Boolean[] CompoundButton_isChecked = {false, false, false, false};//记录复选按钮状态
 
     @Nullable
     @Override
@@ -61,16 +63,20 @@ public class AccountFragment extends Fragment {
                 holder.setOnCheckedChangeListener(R.id.is_recharge, new CompoundButton.OnCheckedChangeListener() {
                     @Override
                     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                        if (buttonView.isChecked())
-                            Toast.makeText(getContext(), "选中", Toast.LENGTH_SHORT).show();
-                        else
-                            Toast.makeText(getContext(), "没有选中", Toast.LENGTH_SHORT).show();
+                        CompoundButton_isChecked[holder.getItemPosition()] = isChecked;
                     }
                 });
                 holder.setOnClickListener(R.id.btn_recharge, new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Toast.makeText(getContext(), "充值", Toast.LENGTH_SHORT).show();
+                        List<Integer> rechargeCarId = new ArrayList<>();
+                        List<String> rechargePlate = new ArrayList<>();
+                        for (int i = 0; i < CarId.length; i++)
+                            if (CompoundButton_isChecked[i]) {
+                                rechargeCarId.add(CarId[i]);
+                                rechargePlate.add(plate[i]);
+                            }
+                        new RechargeDialog(rechargeCarId, rechargePlate).show(getFragmentManager(), "Recharge");
                     }
                 });
                 //低于警告值更改背景颜色
