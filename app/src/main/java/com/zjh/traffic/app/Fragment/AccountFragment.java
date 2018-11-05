@@ -32,7 +32,7 @@ public class AccountFragment extends Fragment {
     private int[] im_car = {R.drawable.car_bmw, R.drawable.car_zh, R.drawable.car_bc, R.drawable.car_mazda};
     private String[] plate = {"辽A10001", "辽A10002", "辽A10003", "辽A10004"};
     private String[] name = {"张三", "李四", "王五", "赵六"};
-    private String[] balance = {"100", "200", "100", "300"};
+    private String[] balance = {"(查询中)", "(查询中)", "(查询中)", "(查询中)"};
 
     @Nullable
     @Override
@@ -73,8 +73,13 @@ public class AccountFragment extends Fragment {
                         Toast.makeText(getContext(), "充值", Toast.LENGTH_SHORT).show();
                     }
                 });
-                if (Integer.parseInt(balance[holder.getItemPosition()]) < App.getAlerting())
-                    holder.getItemView().setBackgroundColor(Color.parseColor("#ffcc00"));
+                //低于警告值更改背景颜色
+                try {
+                    if (Integer.parseInt(balance[holder.getItemPosition()]) < App.getAlerting())
+                        holder.getItemView().setBackgroundColor(Color.parseColor("#ffcc00"));
+                } catch (NumberFormatException e) {
+                    e.printStackTrace();
+                }
             }
         };
         carList.setAdapter(carListAdapter);
