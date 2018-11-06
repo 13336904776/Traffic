@@ -42,7 +42,7 @@
 
     <TextView
         android:id="@+id/balance"
-        android:layout_width="100dp"
+        android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:layout_marginLeft="50dp"
         android:text="余额:100元" />
@@ -50,15 +50,13 @@
     <android.support.v7.widget.AppCompatCheckBox
         android:id="@+id/is_recharge"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="50dp"
-        android:layout_marginRight="30dp" />
+        android:layout_height="wrap_content" />
 
     <Button
         android:id="@+id/btn_recharge"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
+        android:layout_marginLeft="30dp"
         android:background="@drawable/edittext_focused"
         android:text="充值" />
 </LinearLayout>

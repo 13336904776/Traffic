@@ -56,8 +56,20 @@ public class NetUtils {
                     });
                 } catch (MalformedURLException e) {
                     e.printStackTrace();
+                    handler.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            responseListener.onResponse("");
+                        }
+                    });
                 } catch (IOException e) {
                     e.printStackTrace();
+                    handler.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            responseListener.onResponse("");
+                        }
+                    });
                 }
             }
         }).start();

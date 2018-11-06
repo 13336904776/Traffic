@@ -1,10 +1,13 @@
 package com.zjh.traffic.app.Fragment;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,6 +25,8 @@ import com.zjh.traffic.app.Request.GetCarAccountBalanceRequest;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static android.support.v4.app.DialogFragment.STYLE_NORMAL;
 
 
 public class AccountFragment extends Fragment {
@@ -76,7 +81,11 @@ public class AccountFragment extends Fragment {
                                 rechargeCarId.add(CarId[i]);
                                 rechargePlate.add(plate[i]);
                             }
-                        new RechargeDialog(rechargeCarId, rechargePlate).show(getFragmentManager(), "Recharge");
+                        if (getFragmentManager() != null) {
+                            RechargeDialog rechargeDialog = new RechargeDialog(rechargeCarId, rechargePlate);
+                            rechargeDialog.setTargetFragment(AccountFragment.this, 0);
+                            rechargeDialog.show(getFragmentManager(), "Recharge");
+                        }
                     }
                 });
                 //低于警告值更改背景颜色
@@ -91,20 +100,36 @@ public class AccountFragment extends Fragment {
         carList.setAdapter(carListAdapter);
     }
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == Activity.RESULT_OK) {
+            switch (requestCode) {
+                case 0:
+                    upData();
+                    break;
+            }
+        }
+    }
+
     private void upData() {
+        Toast.makeText(getContext(), "更新信息中", Toast.LENGTH_SHORT).show();
         for (int k = 0; k < CarId.length; k++) {
             final int finalK = k;
-            new GetCarAccountBalanceRequest().setParams(new Object[]{CarId[k], App.getUserName()}).sendRequest(new OnResponseListener() {
-                @Override
-                public void onResponse(Object result) {
-                    balance[finalK] = result.toString();
-                    carListAdapter.clear();
-                    for (int i = 0; i < CarId.length; i++) {
-                        carListAdapter.add(new carListBean(CarId[i], im_car[i], plate[i], name[i], balance[i]));
-                    }
-                    carListAdapter.notifyDataSetChanged();
-                }
-            });
+            new GetCarAccountBalanceRequest().setParams(new Object[]{CarId[k], App.getUserName()}).
+                    sendRequest(new OnResponseListener() {
+                        @Override
+                        public void onResponse(Object result) {
+                            try {
+                                balance[finalK] = result.toString();
+                                carListAdapter.clear();
+                                for (int i = 0; i < CarId.length; i++)
+                                    carListAdapter.add(new carListBean(CarId[i], im_car[i], plate[i], name[i], balance[i]));
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    });
         }
     }
 }
