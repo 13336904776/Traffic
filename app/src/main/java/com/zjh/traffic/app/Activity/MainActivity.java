@@ -1,5 +1,7 @@
 package com.zjh.traffic.app.Activity;
 
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
@@ -14,6 +16,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.zjh.traffic.R;
+import com.zjh.traffic.app.Application.App;
 import com.zjh.traffic.app.Fragment.AccountFragment;
 import com.zjh.traffic.app.Fragment.BuscxFragment;
 
@@ -69,6 +72,7 @@ public class MainActivity extends BaseActivity implements AdapterView.OnItemClic
         list = new ArrayList();
         list.add("账户管理");
         list.add("公交查询");
+        list.add("退出登录");
         menuList.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_expandable_list_item_1, list));
         menuList.setOnItemClickListener(this);
 
@@ -91,6 +95,17 @@ public class MainActivity extends BaseActivity implements AdapterView.OnItemClic
             case 1:
                 title.setText(list.get(1));
                 fragmentTransaction.replace(R.id.frameLayout, buscxFragment);
+                break;
+            case 2:
+                App.showAlertDialog(MainActivity.this, "提醒", "确定退出登录吗",
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                startActivity(new Intent(MainActivity.this, LoginActivity.class));
+                                App.setAutoLogin(false);
+                                MainActivity.this.finish();
+                            }
+                        });
                 break;
         }
         fragmentTransaction.commit();
