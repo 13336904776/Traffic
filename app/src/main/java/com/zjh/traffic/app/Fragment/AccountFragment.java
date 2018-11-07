@@ -40,14 +40,17 @@ public class AccountFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_account, null);
+        return inflater.inflate(R.layout.fragment_account, null);
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
         CompoundButton_isChecked = new Boolean[]{false, false, false, false};
         balance = new String[]{"(查询中)", "(查询中)", "(查询中)", "(查询中)"};
         initView(view);
         upData(0);
-        return view;
     }
-
 
     private void initView(View view) {
         carList = view.findViewById(R.id.carlist);

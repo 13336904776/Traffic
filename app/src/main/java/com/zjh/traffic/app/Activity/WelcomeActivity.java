@@ -15,7 +15,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.zjh.traffic.R;
-import com.zjh.traffic.app.Adapter.ViewPagerAdapter;
+import com.zjh.traffic.app.Adapter.ViewPagerAdapter_view;
 import com.zjh.traffic.app.Application.App;
 
 import java.util.ArrayList;
@@ -23,7 +23,7 @@ import java.util.List;
 
 public class WelcomeActivity extends BaseActivity {
     private ViewPager viewPager;
-    private ViewPagerAdapter myViewPagerAdapter;
+    private ViewPagerAdapter_view myViewPagerAdapter;
     private LinearLayout dotsLayout;
     private TextView[] dots;
     private List<View> layouts;
@@ -57,7 +57,7 @@ public class WelcomeActivity extends BaseActivity {
         addBottomDots(0);
         //让状态栏透明
         changeStatusBarColor();
-        myViewPagerAdapter = new ViewPagerAdapter(layouts, this);
+        myViewPagerAdapter = new ViewPagerAdapter_view(layouts, this);
         viewPager.setAdapter(myViewPagerAdapter);
         viewPager.addOnPageChangeListener(viewPagerPageChangeListener);
 

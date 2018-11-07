@@ -1,4 +1,4 @@
-package com.zjh.traffic.app.Fragment;
+package com.zjh.traffic.app.Fragment.ChildFragment;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -10,11 +10,11 @@ import android.view.ViewGroup;
 
 import com.zjh.traffic.R;
 
-public class BuscxFragment extends Fragment {
+public class PersonalDataFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_buscx, null);
+        return inflater.inflate(R.layout.fragment_personaldata, null);
     }
 
     @Override

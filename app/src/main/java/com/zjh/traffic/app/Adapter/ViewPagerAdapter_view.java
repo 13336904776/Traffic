@@ -1,18 +1,20 @@
 package com.zjh.traffic.app.Adapter;
 
 import android.content.Context;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.view.PagerAdapter;
 import android.view.View;
 import android.view.ViewGroup;
 
 import java.util.List;
 
-public class ViewPagerAdapter extends PagerAdapter {
+public class ViewPagerAdapter_view extends PagerAdapter {
 
-    private List<View> views;   // 我们引导页的list
+    private List<View> views;   // 引导页的list
     private Context context;    // 上下文
 
-    public ViewPagerAdapter(List<View> views, Context context) {
+    public ViewPagerAdapter_view(List<View> views, Context context) {
         this.views = views;
         this.context = context;
     }
@@ -20,7 +22,6 @@ public class ViewPagerAdapter extends PagerAdapter {
     // 移除一个view
     @Override
     public void destroyItem(ViewGroup container, int position, Object object) {
-        //super.destroyItem(container, position, object);
         container.removeView(views.get(position));
     }
 
