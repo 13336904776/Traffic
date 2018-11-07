@@ -19,6 +19,7 @@ import com.zjh.traffic.R;
 import com.zjh.traffic.app.Application.App;
 import com.zjh.traffic.app.Fragment.AccountFragment;
 import com.zjh.traffic.app.Fragment.BuscxFragment;
+import com.zjh.traffic.app.Fragment.PersonalcenterFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,6 +44,7 @@ public class MainActivity extends BaseActivity implements AdapterView.OnItemClic
     private FragmentTransaction fragmentTransaction;
     private AccountFragment accountFragment;
     private BuscxFragment buscxFragment;
+    private PersonalcenterFragment personalcenterFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,12 +74,14 @@ public class MainActivity extends BaseActivity implements AdapterView.OnItemClic
         list = new ArrayList();
         list.add("账户管理");
         list.add("公交查询");
+        list.add("个人中心");
         list.add("退出登录");
         menuList.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_expandable_list_item_1, list));
         menuList.setOnItemClickListener(this);
 
         accountFragment = new AccountFragment();
         buscxFragment = new BuscxFragment();
+        personalcenterFragment = new PersonalcenterFragment();
     }
 
     /**
@@ -97,6 +101,10 @@ public class MainActivity extends BaseActivity implements AdapterView.OnItemClic
                 fragmentTransaction.replace(R.id.frameLayout, buscxFragment);
                 break;
             case 2:
+                title.setText(list.get(2));
+                fragmentTransaction.replace(R.id.frameLayout, personalcenterFragment);
+                break;
+            case 3:
                 App.showAlertDialog(MainActivity.this, "提醒", "确定退出登录吗",
                         new DialogInterface.OnClickListener() {
                             @Override
