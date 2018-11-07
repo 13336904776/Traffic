@@ -7,13 +7,11 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CompoundButton;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.zjh.traffic.R;
 import com.zjh.traffic.app.Adapter.MyBaseAdapter;
@@ -26,8 +24,6 @@ import com.zjh.traffic.app.Request.GetCarAccountBalanceRequest;
 import java.util.ArrayList;
 import java.util.List;
 
-import static android.support.v4.app.DialogFragment.STYLE_NORMAL;
-
 
 public class AccountFragment extends Fragment {
 
@@ -38,15 +34,17 @@ public class AccountFragment extends Fragment {
     private int[] im_car = {R.drawable.car_bmw, R.drawable.car_zh, R.drawable.car_bc, R.drawable.car_mazda};
     private String[] plate = {"辽A10001", "辽A10002", "辽A10003", "辽A10004"};
     private String[] name = {"张三", "李四", "王五", "赵六"};
-    private String[] balance = {"(查询中)", "(查询中)", "(查询中)", "(查询中)"};
-    private Boolean[] CompoundButton_isChecked = {false, false, false, false};//记录复选按钮状态
+    private String[] balance;
+    private Boolean[] CompoundButton_isChecked;//记录复选按钮状态
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_account, null);
+        CompoundButton_isChecked = new Boolean[]{false, false, false, false};
+        balance = new String[]{"(查询中)", "(查询中)", "(查询中)", "(查询中)"};
         initView(view);
-        upData();
+        upData(0);
         return view;
     }
 
@@ -54,8 +52,6 @@ public class AccountFragment extends Fragment {
     private void initView(View view) {
         carList = view.findViewById(R.id.carlist);
         listData = new ArrayList<>();
-        for (int i = 0; i < CarId.length; i++)
-            listData.add(new carListBean(CarId[i], im_car[i], plate[i], name[i], balance[i]));
         carListAdapter = new MyBaseAdapter<carListBean>(listData, R.layout.fragment_account_carlist) {
 
             @Override
@@ -92,11 +88,13 @@ public class AccountFragment extends Fragment {
                 try {
                     if (Integer.parseInt(balance[holder.getItemPosition()]) < App.getAlerting())
                         holder.getItemView().setBackgroundColor(Color.parseColor("#ffcc00"));
-                } catch (NumberFormatException e) {
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
         };
+        for (int i = 0; i < CarId.length; i++)
+            carListAdapter.add(new carListBean(CarId[i], im_car[i], plate[i], name[i], balance[i]));
         carList.setAdapter(carListAdapter);
     }
 
@@ -106,30 +104,31 @@ public class AccountFragment extends Fragment {
         if (resultCode == Activity.RESULT_OK) {
             switch (requestCode) {
                 case 0:
-                    upData();
+                    balance = new String[]{"(查询中)", "(查询中)", "(查询中)", "(查询中)"};
+                    upData(0);
                     break;
             }
         }
     }
 
-    private void upData() {
-        Toast.makeText(getContext(), "更新信息中", Toast.LENGTH_SHORT).show();
-        for (int k = 0; k < CarId.length; k++) {
-            final int finalK = k;
-            new GetCarAccountBalanceRequest().setParams(new Object[]{CarId[k], App.getUserName()}).
-                    sendRequest(new OnResponseListener() {
-                        @Override
-                        public void onResponse(Object result) {
-                            try {
-                                balance[finalK] = result.toString();
-                                carListAdapter.clear();
-                                for (int i = 0; i < CarId.length; i++)
-                                    carListAdapter.add(new carListBean(CarId[i], im_car[i], plate[i], name[i], balance[i]));
-                            } catch (Exception e) {
-                                e.printStackTrace();
-                            }
+    private void upData(final int i) {
+        new GetCarAccountBalanceRequest().setParams(new Object[]{CarId[i], App.getUserName()}).
+                sendRequest(new OnResponseListener() {
+                    int finalI = i;
+
+                    @Override
+                    public void onResponse(Object result) {
+                        try {
+                            balance[finalI] = result.toString();
+                            carListAdapter.clear();
+                            for (int i = 0; i < CarId.length; i++)
+                                carListAdapter.add(new carListBean(CarId[i], im_car[i], plate[i], name[i], balance[i]));
+                            if (finalI < CarId.length - 1 && balance[++finalI].equals("(查询中)"))
+                                upData(finalI);
+                        } catch (Exception e) {
+                            e.printStackTrace();
                         }
-                    });
-        }
+                    }
+                });
     }
 }

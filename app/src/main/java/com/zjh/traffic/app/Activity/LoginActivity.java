@@ -1,6 +1,7 @@
 package com.zjh.traffic.app.Activity;
 
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -102,10 +103,15 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                 if (isPassword(App.getUserName(), App.getPassword()))
                     startIntent();
                 else {
-                    password.setText("");
-                    autoLogin.setChecked(false);
-                    rememberPassword.setChecked(false);
-                    App.showAlertDialog(this, "提醒", "用户名或密码错误，请重新登录");
+                    App.showAlertDialog(this, "提醒", "用户名或密码错误，请重新登录",
+                            new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    password.setText("");
+                                    autoLogin.setChecked(false);
+                                    rememberPassword.setChecked(false);
+                                }
+                            });
                 }
                 break;
             case R.id.btn_register:

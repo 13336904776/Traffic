@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.Application;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
@@ -22,12 +23,18 @@ public class App extends Application {
         sP = PreferenceManager.getDefaultSharedPreferences(this);
     }
 
-    public static void showAlertDialog(Context context, String title, String msg) {
+    public static void showAlertDialog(Context context, String title, String msg,
+                                       DialogInterface.OnClickListener listener) {
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         builder.setTitle(title)
                 .setMessage(msg)
-                .setPositiveButton("确定", null)
-                .setNegativeButton("取消", null)
+                .setPositiveButton("确定", listener)
+                .setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                })
                 .show();
     }
 

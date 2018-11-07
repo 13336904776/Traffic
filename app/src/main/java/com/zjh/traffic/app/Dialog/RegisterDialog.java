@@ -1,5 +1,6 @@
 package com.zjh.traffic.app.Dialog;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -43,11 +44,17 @@ public class RegisterDialog extends DialogFragment {
                         App.setUserName(re_username.getText().toString());
                         App.setPassword(re_password.getText().toString());
                         RegisterDialog.this.dismiss();
-                        App.showAlertDialog(getContext(), "成功", "注册成功");
+                        App.showAlertDialog(getContext(), "提醒", "注册成功", null);
                     } else
-                        App.showAlertDialog(getContext(), "失败", "两次密码不同");
+                        App.showAlertDialog(getContext(), "提醒", "两次密码不同", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                re_password.setText("");
+                                re_again_password.setText("");
+                            }
+                        });
                 } else {
-                    App.showAlertDialog(getContext(), "失败", "账号密码不能为空");
+                    App.showAlertDialog(getContext(), "提醒", "账号密码不能为空", null);
                 }
             }
         }
