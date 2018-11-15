@@ -54,7 +54,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
             android:text="记住密码"
-            android:textColor="#ff000000" />
+            android:textColor="@color/colorBlack" />
 
         <android.support.v7.widget.AppCompatCheckBox
             android:id="@+id/auto_login"
@@ -67,7 +67,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
             android:text="自动登录"
-            android:textColor="#ff000000" />
+            android:textColor="@color/colorBlack" />
     </LinearLayout>
 
     <LinearLayout

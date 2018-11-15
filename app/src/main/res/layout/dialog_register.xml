@@ -52,6 +52,6 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_margin="10dp"
-        android:background="#ffffff"
+        android:background="@color/colorWhile"
         android:text="注册" />
 </LinearLayout>

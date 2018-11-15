@@ -8,7 +8,7 @@
     <LinearLayout
         android:layout_width="200dp"
         android:layout_height="250dp"
-        android:background="#c0c0c0"
+        android:background="@color/colorBackground"
         android:gravity="center"
         android:orientation="vertical">
 
@@ -16,21 +16,24 @@
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:layout_margin="10dp"
-            android:src="@drawable/ic_launcher_foreground" />
+            android:src="@drawable/ic_user_boy" />
 
         <TextView
             android:layout_width="100dp"
             android:layout_height="wrap_content"
+            android:layout_margin="10dp"
             android:text="姓名:" />
 
         <TextView
             android:layout_width="100dp"
             android:layout_height="wrap_content"
+            android:layout_margin="10dp"
             android:text="性别:" />
 
         <TextView
             android:layout_width="155dp"
             android:layout_height="wrap_content"
+            android:layout_margin="10dp"
             android:text="手机号码:" />
     </LinearLayout>
 
@@ -43,7 +46,7 @@
         <LinearLayout
             android:layout_width="300dp"
             android:layout_height="60dp"
-            android:background="#c0c0c0"
+            android:background="@color/colorBackground"
             android:gravity="center"
             android:orientation="horizontal">
 
@@ -63,7 +66,7 @@
             android:layout_width="300dp"
             android:layout_height="210dp"
             android:layout_marginTop="30dp"
-            android:background="#c0c0c0"
+            android:background="@color/colorBackground"
             android:orientation="vertical">
 
             <TextView
@@ -87,7 +90,7 @@
                     <ImageView
                         android:layout_width="50dp"
                         android:layout_height="50dp"
-                        android:src="@drawable/ic_launcher_foreground" />
+                        android:src="@drawable/car_mazda" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -106,7 +109,7 @@
                     <ImageView
                         android:layout_width="50dp"
                         android:layout_height="50dp"
-                        android:src="@drawable/ic_launcher_foreground" />
+                        android:src="@drawable/car_bc" />
 
                     <TextView
                         android:layout_width="wrap_content"

@@ -5,4 +5,5 @@
     <color name="colorAccent">#000000</color>
     <color name="colorWhile">#ffffff</color>
     <color name="colorBlack">#000000</color>
+    <color name="colorBackground">#b3b3b3</color>
 </resources>
