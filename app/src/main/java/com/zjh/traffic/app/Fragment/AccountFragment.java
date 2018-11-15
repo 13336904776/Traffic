@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -67,11 +68,6 @@ public class AccountFragment extends Fragment {
                     @Override
                     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                         CompoundButton_isChecked[holder.getItemPosition()] = isChecked;
-                    }
-                });
-                holder.setOnClickListener(R.id.btn_recharge, new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
                         List<Integer> rechargeCarId = new ArrayList<>();
                         List<String> rechargePlate = new ArrayList<>();
                         for (int i = 0; i < CarId.length; i++)
@@ -79,6 +75,17 @@ public class AccountFragment extends Fragment {
                                 rechargeCarId.add(CarId[i]);
                                 rechargePlate.add(plate[i]);
                             }
+                        App.setRechargeCarId(rechargeCarId);
+                        App.setRechargePlate(rechargePlate);
+                    }
+                });
+                holder.setOnClickListener(R.id.btn_recharge, new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        List<Integer> rechargeCarId = new ArrayList<>();
+                        List<String> rechargePlate = new ArrayList<>();
+                        rechargeCarId.add(CarId[holder.getItemPosition()]);
+                        rechargePlate.add(plate[holder.getItemPosition()]);
                         if (getFragmentManager() != null) {
                             RechargeDialog rechargeDialog = new RechargeDialog(rechargeCarId, rechargePlate);
                             rechargeDialog.setTargetFragment(AccountFragment.this, 0);
@@ -88,8 +95,13 @@ public class AccountFragment extends Fragment {
                 });
                 //低于警告值更改背景颜色
                 try {
-                    if (Integer.parseInt(balance[holder.getItemPosition()]) < App.getAlerting())
+                    if (Integer.parseInt(balance[holder.getItemPosition()]) < App.getAlerting()) {
+                        Log.d("zjh_change", "color_#ffcc00");
                         holder.getItemView().setBackgroundColor(Color.parseColor("#ffcc00"));
+                    } else {
+                        Log.d("zjh_change", "color_#ffffff");
+                        holder.getItemView().setBackgroundColor(Color.parseColor("#ffffff"));
+                    }
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -98,7 +110,6 @@ public class AccountFragment extends Fragment {
         for (int i = 0; i < CarId.length; i++)
             carListAdapter.add(new carListBean(CarId[i], im_car[i], plate[i], name[i], balance[i]));
         carList.setAdapter(carListAdapter);
-
     }
 
     @Override

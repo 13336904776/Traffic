@@ -8,6 +8,8 @@ import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
+import java.util.List;
+
 public class App extends Application {
     private static SharedPreferences sP;
     private static String userName;//用户名
@@ -16,6 +18,9 @@ public class App extends Application {
     private static boolean rememberPassword;//记住密码
     private static boolean autoLogin;//自动登陆
     private static int Alerting;//账户余额告警值
+
+    private static List<Integer> rechargeCarId;//要充值的小车id
+    private static List<String> rechargePlate;//要充值的小车车牌号
 
     @Override
     public void onCreate() {
@@ -90,5 +95,21 @@ public class App extends Application {
     @SuppressLint("ApplySharedPref")
     public static void setAlerting(int alerting) {
         sP.edit().putInt("Alerting", alerting).commit();
+    }
+
+    public static List<Integer> getRechargeCarId() {
+        return rechargeCarId;
+    }
+
+    public static void setRechargeCarId(List<Integer> rechargeCarId) {
+        App.rechargeCarId = rechargeCarId;
+    }
+
+    public static List<String> getRechargePlate() {
+        return rechargePlate;
+    }
+
+    public static void setRechargePlate(List<String> rechargePlate) {
+        App.rechargePlate = rechargePlate;
     }
 }

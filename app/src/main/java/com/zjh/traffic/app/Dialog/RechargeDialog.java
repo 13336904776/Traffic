@@ -21,6 +21,7 @@ import com.zjh.traffic.app.Application.App;
 import com.zjh.traffic.app.Callback.OnResponseListener;
 import com.zjh.traffic.app.Request.SetCarAccountRechargeRequest;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class RechargeDialog extends DialogFragment implements View.OnClickListener {
@@ -35,20 +36,29 @@ public class RechargeDialog extends DialogFragment implements View.OnClickListen
 
     private ProgressDialog progressDialog;//充值过程框
 
+    private String Tag;
+
     public RechargeDialog() {
     }
 
     @SuppressLint("ValidFragment")
     public RechargeDialog(List<Integer> rechargeCarId, List<String> rechargePlate) {
-        this.rechargeCarId = rechargeCarId;
-        this.rechargePlate = rechargePlate;
-        this.isRequest = new Boolean[rechargeCarId.size()];
+        if (rechargeCarId != null && rechargePlate != null) {
+            this.rechargeCarId = rechargeCarId;
+            this.rechargePlate = rechargePlate;
+            this.isRequest = new Boolean[rechargeCarId.size()];
+        } else {
+            this.rechargeCarId = new ArrayList<>();
+            this.rechargePlate = new ArrayList<>();
+            this.isRequest = new Boolean[0];
+        }
     }
 
     @Nullable
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        Tag = getTag();
         return inflater.inflate(R.layout.dialog_recharge, null);
     }
 
@@ -75,16 +85,16 @@ public class RechargeDialog extends DialogFragment implements View.OnClickListen
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_recharge:
-                if (!rechargeMoney_ed.getText().toString().equals("")) {
+                if (rechargeCarId.size() == 0)
+                    App.showAlertDialog(getContext(), "提醒", "请选择充值车辆", null);
+                else if (!rechargeMoney_ed.getText().toString().equals("")) {
                     progressDialog = new ProgressDialog(getContext());
                     progressDialog.setTitle("充值");
                     progressDialog.setMessage("充值中");
                     progressDialog.setCancelable(false);
                     progressDialog.show();
                     upData(0);
-                } else if (rechargeCarId.size() == 0)
-                    App.showAlertDialog(getContext(), "提醒", "请选择充值车辆", null);
-                else
+                } else
                     App.showAlertDialog(getContext(), "提醒", "请输入充值金额", null);
                 break;
             case R.id.btn_cancel:
@@ -118,8 +128,9 @@ public class RechargeDialog extends DialogFragment implements View.OnClickListen
                                     @Override
                                     public void onClick(DialogInterface dialog, int which) {
                                         //通知AccountFragment更新数据
-                                        getTargetFragment().onActivityResult(getTargetRequestCode(),
-                                                Activity.RESULT_OK, new Intent());
+                                        if (Tag.equals("Recharge"))
+                                            getTargetFragment().onActivityResult(getTargetRequestCode(),
+                                                    Activity.RESULT_OK, new Intent());
                                     }
                                 });
                             }

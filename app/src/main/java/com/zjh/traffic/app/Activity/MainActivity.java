@@ -15,10 +15,10 @@ import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.zjh.traffic.R;
 import com.zjh.traffic.app.Application.App;
+import com.zjh.traffic.app.Dialog.RechargeDialog;
 import com.zjh.traffic.app.Fragment.AccountFragment;
 import com.zjh.traffic.app.Fragment.BuscxFragment;
 import com.zjh.traffic.app.Fragment.PersonalcenterFragment;
@@ -58,7 +58,9 @@ public class MainActivity extends BaseActivity implements AdapterView.OnItemClic
         batchRecharge.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(MainActivity.this, "点击", Toast.LENGTH_SHORT).show();
+                RechargeDialog rechargeDialog = new RechargeDialog(App.getRechargeCarId(), App.getRechargePlate());
+                rechargeDialog.setTargetFragment(accountFragment, 0);
+                rechargeDialog.show(accountFragment.getFragmentManager(), "Recharge");
             }
         });
         rechargeRecord.setOnClickListener(new View.OnClickListener() {
