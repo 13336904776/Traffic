@@ -1,5 +1,6 @@
 package com.zjh.traffic.app.Activity;
 
+import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v4.app.FragmentManager;
@@ -14,6 +15,7 @@ import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.zjh.traffic.R;
 import com.zjh.traffic.app.Application.App;
@@ -34,7 +36,7 @@ public class MainActivity extends BaseActivity implements AdapterView.OnItemClic
     private List<String> list;
 
 
-    private TextView title;
+    private TextView title, batchRecharge, rechargeRecord;
 
     /**
      * 管理器类 FragmentManager 和 事务类 FragmentTransaction
@@ -52,10 +54,25 @@ public class MainActivity extends BaseActivity implements AdapterView.OnItemClic
         setContentView(R.layout.activity_main);
         initView();
         title.setText(list.get(0));
-        fragmentManager = getSupportFragmentManager();
-        fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.frameLayout, accountFragment);
-        fragmentTransaction.commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout, accountFragment).commit();
+        batchRecharge.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(MainActivity.this, "点击", Toast.LENGTH_SHORT).show();
+            }
+        });
+        rechargeRecord.setOnClickListener(new View.OnClickListener() {
+            @SuppressLint("CommitTransaction")
+            @Override
+            public void onClick(View v) {
+                title.setText(list.get(2));
+                batchRecharge.setVisibility(View.GONE);
+                rechargeRecord.setVisibility(View.GONE);
+                getSupportFragmentManager().beginTransaction().
+                        replace(R.id.frameLayout, new PersonalcenterFragment(1)).commit();
+            }
+        });
+
     }
 
     /***
@@ -70,6 +87,8 @@ public class MainActivity extends BaseActivity implements AdapterView.OnItemClic
         toggle.syncState();
 
         title = findViewById(R.id.title);
+        batchRecharge = findViewById(R.id.batchRecharge);
+        rechargeRecord = findViewById(R.id.rechargeRecord);
         menuList = findViewById(R.id.menuList);
         list = new ArrayList();
         list.add("账户管理");
@@ -94,14 +113,20 @@ public class MainActivity extends BaseActivity implements AdapterView.OnItemClic
         switch (position) {
             case 0:
                 title.setText(list.get(0));
+                batchRecharge.setVisibility(View.VISIBLE);
+                rechargeRecord.setVisibility(View.VISIBLE);
                 fragmentTransaction.replace(R.id.frameLayout, accountFragment);
                 break;
             case 1:
                 title.setText(list.get(1));
+                batchRecharge.setVisibility(View.GONE);
+                rechargeRecord.setVisibility(View.GONE);
                 fragmentTransaction.replace(R.id.frameLayout, buscxFragment);
                 break;
             case 2:
                 title.setText(list.get(2));
+                batchRecharge.setVisibility(View.GONE);
+                rechargeRecord.setVisibility(View.GONE);
                 fragmentTransaction.replace(R.id.frameLayout, personalcenterFragment);
                 break;
             case 3:

@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 
 import com.zjh.traffic.R;
 
-public class GetUserCardusedFragment extends Fragment {
+public class RechargeRecordFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {

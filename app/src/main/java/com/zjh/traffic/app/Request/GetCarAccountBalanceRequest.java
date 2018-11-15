@@ -43,6 +43,6 @@ public class GetCarAccountBalanceRequest extends BaseRequest {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        return "查询失败";
+        return "0";
     }
 }

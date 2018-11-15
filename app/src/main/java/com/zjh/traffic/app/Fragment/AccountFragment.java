@@ -32,9 +32,9 @@ public class AccountFragment extends Fragment {
     private List<carListBean> listData;
     private int[] CarId = {1, 2, 3, 4};
     private int[] im_car = {R.drawable.car_bmw, R.drawable.car_zh, R.drawable.car_bc, R.drawable.car_mazda};
-    private String[] plate = {"辽A10001", "辽A10002", "辽A10003", "辽A10004"};
-    private String[] name = {"张三", "李四", "王五", "赵六"};
-    private String[] balance;
+    private String[] plate = {"鲁B10001", "鲁B10002", "鲁B10003", "鲁B10004"};
+    private String[] name = {"王生安", "张顺谷", "张淮森", "王生安"};
+    private String[] balance = new String[]{"0", "0", "0", "0"};
     private Boolean[] CompoundButton_isChecked;//记录复选按钮状态
 
     @Nullable
@@ -47,7 +47,6 @@ public class AccountFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         CompoundButton_isChecked = new Boolean[]{false, false, false, false};
-        balance = new String[]{"(查询中)", "(查询中)", "(查询中)", "(查询中)"};
         initView(view);
         upData(0);
     }
@@ -99,6 +98,7 @@ public class AccountFragment extends Fragment {
         for (int i = 0; i < CarId.length; i++)
             carListAdapter.add(new carListBean(CarId[i], im_car[i], plate[i], name[i], balance[i]));
         carList.setAdapter(carListAdapter);
+
     }
 
     @Override
@@ -107,7 +107,6 @@ public class AccountFragment extends Fragment {
         if (resultCode == Activity.RESULT_OK) {
             switch (requestCode) {
                 case 0:
-                    balance = new String[]{"(查询中)", "(查询中)", "(查询中)", "(查询中)"};
                     upData(0);
                     break;
             }
@@ -126,7 +125,7 @@ public class AccountFragment extends Fragment {
                             carListAdapter.clear();
                             for (int i = 0; i < CarId.length; i++)
                                 carListAdapter.add(new carListBean(CarId[i], im_car[i], plate[i], name[i], balance[i]));
-                            if (finalI < CarId.length - 1 && balance[++finalI].equals("(查询中)"))
+                            if (++finalI < CarId.length)
                                 upData(finalI);
                         } catch (Exception e) {
                             e.printStackTrace();
@@ -134,4 +133,5 @@ public class AccountFragment extends Fragment {
                     }
                 });
     }
+
 }

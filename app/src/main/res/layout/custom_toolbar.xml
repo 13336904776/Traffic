@@ -10,14 +10,42 @@
         android:layout_height="wrap_content"
         android:background="@color/colorPrimaryDark">
 
-        <TextView
-            android:id="@+id/title"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:text="标题"
-            android:textColor="@color/colorWhile"
-            android:textSize="22dp" />
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="220dp"
+                android:text="标题"
+                android:textColor="@color/colorWhile"
+                android:textSize="22dp" />
+
+            <TextView
+                android:id="@+id/batchRecharge"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="70dp"
+                android:layout_toRightOf="@id/title"
+                android:clickable="true"
+                android:text="批量充值"
+                android:textColor="@color/colorWhile"
+                android:textSize="18dp" />
+
+            <TextView
+                android:id="@+id/rechargeRecord"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="70dp"
+                android:clickable="true"
+                android:text="充值记录"
+                android:textColor="@color/colorWhile"
+                android:textSize="18dp" />
+        </RelativeLayout>
+
 
     </android.support.v7.widget.Toolbar>
 
