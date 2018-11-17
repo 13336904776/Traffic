@@ -1,62 +1,80 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:gravity="center"
-    android:orientation="horizontal">
-
-    <TextView
-        android:id="@+id/CarId"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="20dp"
-        android:text="1" />
-
-    <ImageView
-        android:id="@+id/im_car"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_margin="10dp"
-        android:src="@drawable/car_bmw" />
+    android:layout_height="match_parent">
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
-        android:orientation="vertical">
+        android:layout_centerVertical="true"
+        android:orientation="horizontal"
+        android:paddingLeft="10dp">
 
         <TextView
-            android:id="@+id/plate"
+            android:id="@+id/CarId"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:text="辽A10001" />
+            android:layout_margin="20dp"
+            android:text="1" />
+
+        <ImageView
+            android:id="@+id/im_car"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_margin="10dp"
+            android:src="@drawable/car_bmw" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/plate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:text="辽A10001" />
+
+            <TextView
+                android:id="@+id/name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:text="车主:张三" />
+        </LinearLayout>
 
         <TextView
-            android:id="@+id/name"
-            android:layout_width="wrap_content"
+            android:id="@+id/balance"
+            android:layout_width="150dp"
             android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:text="车主:张三" />
+            android:layout_gravity="center"
+            android:layout_marginLeft="50dp"
+            android:text="余额:100元" />
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/balance"
-        android:layout_width="150dp"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="50dp"
-        android:text="余额:100元" />
 
-    <android.support.v7.widget.AppCompatCheckBox
-        android:id="@+id/is_recharge"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
-
-    <Button
-        android:id="@+id/btn_recharge"
-        android:layout_width="wrap_content"
+    <RelativeLayout
+        android:layout_width="220dp"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="30dp"
-        android:background="@drawable/edittext_focused"
-        android:text="充值" />
-</LinearLayout>
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true">
+
+        <android.support.v7.widget.AppCompatCheckBox
+            android:id="@+id/is_recharge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true" />
+
+        <Button
+            android:id="@+id/btn_recharge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="50dp"
+            android:layout_toRightOf="@id/is_recharge"
+            android:background="@drawable/edittext_focused"
+            android:text="充值" />
+    </RelativeLayout>
+
+</RelativeLayout>
