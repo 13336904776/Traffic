@@ -55,7 +55,7 @@ public class AccountFragment extends Fragment {
     private void initView(View view) {
         carList = view.findViewById(R.id.carlist);
         listData = new ArrayList<>();
-        carListAdapter = new MyBaseAdapter<carListBean>(listData, R.layout.fragment_account_carlist) {
+        carListAdapter = new MyBaseAdapter<carListBean>(listData, R.layout.item_account_carlist) {
 
             @Override
             public void bindView(final ViewHolder holder, carListBean obj) {
@@ -96,10 +96,10 @@ public class AccountFragment extends Fragment {
                 //低于警告值更改背景颜色
                 try {
                     if (Integer.parseInt(balance[holder.getItemPosition()]) < App.getAlerting()) {
-                        Log.d("zjh_change", "color_#ffcc00");
+                        Log.i("zjh_changeColor", "color_#ffcc00");
                         holder.getItemView().setBackgroundColor(Color.parseColor("#ffcc00"));
                     } else {
-                        Log.d("zjh_change", "color_#ffffff");
+                        Log.i("zjh_changeColor", "color_#ffffff");
                         holder.getItemView().setBackgroundColor(Color.parseColor("#ffffff"));
                     }
                 } catch (Exception e) {

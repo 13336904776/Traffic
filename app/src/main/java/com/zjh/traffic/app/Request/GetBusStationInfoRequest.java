@@ -1,20 +1,22 @@
 package com.zjh.traffic.app.Request;
 
+import android.util.Log;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class GetBusCapacityRequest extends BaseRequest {
-    private int BusId;
+public class GetBusStationInfoRequest extends BaseRequest {
+    private int BusStationID;
     private String UserName;
 
     @Override
     public String getType() {
-        return "GetBusCapacity";
+        return "GetBusStationInfo";
     }
 
     @Override
     public BaseRequest setParams(Object[] params) {
-        this.BusId = Integer.parseInt(params[0].toString());
+        this.BusStationID = Integer.parseInt(params[0].toString());
         this.UserName = params[1].toString();
         return this;
     }
@@ -23,7 +25,7 @@ public class GetBusCapacityRequest extends BaseRequest {
     public String getRequestBody() {
         JSONObject body = new JSONObject();
         try {
-            body.put("BusId", this.BusId);
+            body.put("BusStationID", this.BusStationID);
             body.put("UserName", this.UserName);
         } catch (JSONException e) {
             e.printStackTrace();
@@ -33,13 +35,6 @@ public class GetBusCapacityRequest extends BaseRequest {
 
     @Override
     public Object onResponseParse(String response) {
-        try {
-            String result = new JSONObject(response).getString("RESULT");
-            if (result.equals("S"))
-                return BusId + "号(" + new JSONObject(response).getInt("BusCapacity") + "人)";
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        return BusId + "号(0人)";
+        return "";
     }
 }

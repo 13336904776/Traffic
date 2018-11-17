@@ -1,7 +1,5 @@
 package com.zjh.traffic.app.Request;
 
-import android.util.Log;
-
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -33,7 +31,6 @@ public class SetCarAccountRechargeRequest extends BaseRequest {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        Log.d("zjh_SetCarAccount", body.toString());
         return body.toString();
     }
 
