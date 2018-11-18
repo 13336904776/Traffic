@@ -72,13 +72,13 @@ public class BuscxFragment extends Fragment {
 
         //中医院站组
         buscxItemList_1 = new ArrayList<>();
-        buscxItemList_1.add(new buscxItemBean(BusCapacity[0], "1000"));
-        buscxItemList_1.add(new buscxItemBean(BusCapacity[1], "1000"));
+        buscxItemList_1.add(new buscxItemBean(BusId[0] + "号(0人)", "1000"));
+        buscxItemList_1.add(new buscxItemBean(BusId[1] + "号(0人)", "1000"));
         Data.add(buscxItemList_1);
         //联想大厦站组
         buscxItemList_2 = new ArrayList<>();
-        buscxItemList_2.add(new buscxItemBean(BusCapacity[0], "1000"));
-        buscxItemList_2.add(new buscxItemBean(BusCapacity[1], "1000"));
+        buscxItemList_2.add(new buscxItemBean(BusId[0] + "号(0人)", "2000"));
+        buscxItemList_2.add(new buscxItemBean(BusId[1] + "号(0人)", "2000"));
         Data.add(buscxItemList_2);
 
         myAdapter = new MyBaseExpandableListAdapter(buscxGroupList, Data, getContext());
@@ -104,7 +104,7 @@ public class BuscxFragment extends Fragment {
                                 @Override
                                 public void onResponse(Object result) {
                                     Log.i("zjh_GetBusCapacity", BusId[finalI] + "号公交车" + result.toString());
-                                    BusCapacity[finalI] = BusId[finalI] + "号(" + result.toString();
+                                    BusCapacity[finalI] = BusId[finalI] + "号(" + result.toString()+"人)";
                                 }
                             });
                     try {
