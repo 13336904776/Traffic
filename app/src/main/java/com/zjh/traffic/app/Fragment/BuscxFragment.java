@@ -107,7 +107,7 @@ public class BuscxFragment extends Fragment {
                                 @Override
                                 public void onResponse(Object result) {
                                     Log.i("zjh_GetBusCapacity", BusId[finalI] + "号公交车" + result.toString());
-                                    BusCapacity[finalI] = BusId[finalI] + "号(" + result.toString()+"人)";
+                                    BusCapacity[finalI] = BusId[finalI] + "号(" + result.toString() + "人)";
                                 }
                             });
                     try {

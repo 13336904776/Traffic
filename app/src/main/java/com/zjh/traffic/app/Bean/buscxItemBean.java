@@ -15,8 +15,8 @@ public class buscxItemBean {
     public buscxItemBean(String bus_capacity, String bus_distance) {
         this.img_icon = R.drawable.ic_smallbus;
         this.bus_capacity = bus_capacity;
-        this.bus_distance = "距离站台" + (int) (Double.parseDouble(bus_distance) * 0.1) + "米";
-        this.bus_remainingTime = (int) (((Double.parseDouble(bus_distance) * 0.0001) / 20) * 60) + "分钟到达";
+        this.bus_distance = "距离站台" + (int) (Double.parseDouble(bus_distance) * 0.01) + "米";
+        this.bus_remainingTime = (int) (((Double.parseDouble(bus_distance) * 0.00001) / 20) * 60) + "分钟到达";
     }
 
     public int getImg_icon() {
@@ -44,7 +44,7 @@ public class buscxItemBean {
     }
 
     public void setBus_distance(String bus_distance) {
-        this.bus_distance = "距离站台" + (int) (Double.parseDouble(bus_distance) * 0.1) + "米";
-        this.bus_remainingTime = (int) (((Double.parseDouble(bus_distance) * 0.0001) / 20) * 60) + "分钟到达";
+        this.bus_distance = "距离站台" + (int) (Double.parseDouble(bus_distance) * 0.01) + "米";
+        this.bus_remainingTime = (int) (((Double.parseDouble(bus_distance) * 0.00001) / 20) * 60) + "分钟到达";
     }
 }
