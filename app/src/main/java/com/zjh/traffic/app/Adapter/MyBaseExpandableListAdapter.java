@@ -90,12 +90,16 @@ public class MyBaseExpandableListAdapter extends BaseExpandableListAdapter {
             itemHolder = new ViewHolderItem();
             itemHolder.img_icon = convertView.findViewById(R.id.img_icon);
             itemHolder.bus_capacity = convertView.findViewById(R.id.bus_capacity);
+            itemHolder.bus_remainingTime = convertView.findViewById(R.id.bus_remainingTime);
+            itemHolder.bus_distance = convertView.findViewById(R.id.bus_distance);
             convertView.setTag(itemHolder);
         } else {
             itemHolder = (ViewHolderItem) convertView.getTag();
         }
         itemHolder.img_icon.setImageResource(iData.get(groupPosition).get(childPosition).getImg_icon());
         itemHolder.bus_capacity.setText(iData.get(groupPosition).get(childPosition).getBus_capacity());
+        itemHolder.bus_remainingTime.setText(iData.get(groupPosition).get(childPosition).getBus_remainingTime());
+        itemHolder.bus_distance.setText(iData.get(groupPosition).get(childPosition).getBus_distance());
         return convertView;
     }
 
@@ -113,6 +117,8 @@ public class MyBaseExpandableListAdapter extends BaseExpandableListAdapter {
     private static class ViewHolderItem {
         private ImageView img_icon;
         private TextView bus_capacity;
+        private TextView bus_remainingTime;
+        private TextView bus_distance;
     }
 
 }

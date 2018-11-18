@@ -36,10 +36,10 @@ public class GetBusCapacityRequest extends BaseRequest {
         try {
             String result = new JSONObject(response).getString("RESULT");
             if (result.equals("S"))
-                return BusId + "号(" + new JSONObject(response).getInt("BusCapacity") + "人)";
+                return new JSONObject(response).getInt("BusCapacity");
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        return BusId + "号(0人)";
+        return "0";
     }
 }

@@ -20,6 +20,7 @@ import com.zjh.traffic.app.Bean.buscxGroupBean;
 import com.zjh.traffic.app.Bean.buscxItemBean;
 import com.zjh.traffic.app.Callback.OnResponseListener;
 import com.zjh.traffic.app.Request.GetBusCapacityRequest;
+import com.zjh.traffic.app.Request.GetBusStationInfoRequest;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,8 +34,10 @@ public class BuscxFragment extends Fragment {
     private List<List<buscxItemBean>> Data;
     private ExpandableListView expandableListView;
     private MyBaseExpandableListAdapter myAdapter;
-    private int[] BusId = {1, 2};
+    private int[] BusId = {1, 2};//公交车ID
+    private int[] BusStationId = {1, 2};//公交站台ID
     private String[] BusCapacity = new String[BusId.length];
+    private List<ArrayList<String>> Distance = new ArrayList<>();
     private TimerTask task = null;
     private Timer timer = null;
 
@@ -69,13 +72,13 @@ public class BuscxFragment extends Fragment {
 
         //中医院站组
         buscxItemList_1 = new ArrayList<>();
-        buscxItemList_1.add(new buscxItemBean(R.drawable.ic_smallbus, BusId[0] + "号(10人)"));
-        buscxItemList_1.add(new buscxItemBean(R.drawable.ic_smallbus, BusId[1] + "号(10人)"));
+        buscxItemList_1.add(new buscxItemBean(BusCapacity[0], "1000"));
+        buscxItemList_1.add(new buscxItemBean(BusCapacity[1], "1000"));
         Data.add(buscxItemList_1);
         //联想大厦站组
         buscxItemList_2 = new ArrayList<>();
-        buscxItemList_2.add(new buscxItemBean(R.drawable.ic_smallbus, BusId[0] + "号(10人)"));
-        buscxItemList_2.add(new buscxItemBean(R.drawable.ic_smallbus, BusId[1] + "号(10人)"));
+        buscxItemList_2.add(new buscxItemBean(BusCapacity[0], "1000"));
+        buscxItemList_2.add(new buscxItemBean(BusCapacity[1], "1000"));
         Data.add(buscxItemList_2);
 
         myAdapter = new MyBaseExpandableListAdapter(buscxGroupList, Data, getContext());
@@ -100,8 +103,22 @@ public class BuscxFragment extends Fragment {
                             .sendRequest(new OnResponseListener() {
                                 @Override
                                 public void onResponse(Object result) {
-                                    Log.i("zjh_GetBusCapacity", result.toString());
-                                    BusCapacity[finalI] = result.toString();
+                                    Log.i("zjh_GetBusCapacity", BusId[finalI] + "号公交车" + result.toString());
+                                    BusCapacity[finalI] = BusId[finalI] + "号(" + result.toString();
+                                }
+                            });
+                    try {
+                        Thread.sleep(500);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    new GetBusStationInfoRequest().setParams(new Object[]{BusStationId[i], App.getUserName()})
+                            .sendRequest(new OnResponseListener() {
+                                @Override
+                                public void onResponse(Object result) {
+                                    Log.i("zjh_GetBusStationInfo", BusStationId[finalI] + "号公交站台" + result.toString());
+                                    ArrayList<String> arrayList = (ArrayList<String>) result;
+                                    Distance.add(finalI, arrayList);
                                     if (finalI == BusId.length - 1) {
                                         Message message = new Message();
                                         message.what = 100;
@@ -124,13 +141,23 @@ public class BuscxFragment extends Fragment {
                     Data.clear();
                     //中医院站组
                     buscxItemList_1 = new ArrayList<>();
-                    buscxItemList_1.add(new buscxItemBean(R.drawable.ic_smallbus, BusCapacity[0]));
-                    buscxItemList_1.add(new buscxItemBean(R.drawable.ic_smallbus, BusCapacity[1]));
+                    if (Double.parseDouble(Distance.get(0).get(0)) < Double.parseDouble(Distance.get(0).get(1))) {
+                        buscxItemList_1.add(new buscxItemBean(BusCapacity[0], Distance.get(0).get(0)));
+                        buscxItemList_1.add(new buscxItemBean(BusCapacity[1], Distance.get(0).get(1)));
+                    } else {
+                        buscxItemList_1.add(new buscxItemBean(BusCapacity[1], Distance.get(0).get(1)));
+                        buscxItemList_1.add(new buscxItemBean(BusCapacity[0], Distance.get(0).get(0)));
+                    }
                     Data.add(buscxItemList_1);
                     //联想大厦站组
                     buscxItemList_2 = new ArrayList<>();
-                    buscxItemList_2.add(new buscxItemBean(R.drawable.ic_smallbus, BusCapacity[0]));
-                    buscxItemList_2.add(new buscxItemBean(R.drawable.ic_smallbus, BusCapacity[1]));
+                    if (Double.parseDouble(Distance.get(1).get(0)) < Double.parseDouble(Distance.get(1).get(1))) {
+                        buscxItemList_2.add(new buscxItemBean(BusCapacity[0], Distance.get(1).get(0)));
+                        buscxItemList_2.add(new buscxItemBean(BusCapacity[1], Distance.get(1).get(1)));
+                    } else {
+                        buscxItemList_2.add(new buscxItemBean(BusCapacity[1], Distance.get(1).get(1)));
+                        buscxItemList_2.add(new buscxItemBean(BusCapacity[0], Distance.get(1).get(0)));
+                    }
                     Data.add(buscxItemList_2);
                     myAdapter.notifyDataSetChanged();
                     break;

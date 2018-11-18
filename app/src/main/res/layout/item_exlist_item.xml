@@ -24,12 +24,14 @@
         android:textSize="14dp" />
 
     <TextView
+        android:id="@+id/bus_remainingTime"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:text="5分钟到达" />
 
     <TextView
+        android:id="@+id/bus_distance"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"

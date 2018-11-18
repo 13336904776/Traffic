@@ -1,9 +1,10 @@
 package com.zjh.traffic.app.Request;
 
-import android.util.Log;
-
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.ArrayList;
 
 public class GetBusStationInfoRequest extends BaseRequest {
     private int BusStationId;
@@ -30,13 +31,26 @@ public class GetBusStationInfoRequest extends BaseRequest {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        Log.i("zjh_GetBusStationInfo", body.toString());
         return body.toString();
     }
 
     @Override
     public Object onResponseParse(String response) {
-        Log.i("zjh_GetBusStationInfo", response);
-        return response;
+        ArrayList<String> Distance = new ArrayList<>();
+        try {
+            String result = new JSONObject(response).getString("RESULT");
+            if (result.equals("S")) {
+                result = new JSONObject(response).getString("ROWS_DETAIL");
+                JSONArray jsonArray = new JSONArray(result);
+                Distance.add(0, jsonArray.getJSONObject(0).getString("Distance"));
+                Distance.add(1, jsonArray.getJSONObject(1).getString("Distance"));
+                return Distance;
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        Distance.add(0, "1000");
+        Distance.add(1, "2000");
+        return Distance;
     }
 }
