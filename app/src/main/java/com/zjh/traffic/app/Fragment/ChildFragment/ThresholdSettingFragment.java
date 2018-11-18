@@ -15,6 +15,8 @@ import android.widget.TextView;
 import com.zjh.traffic.R;
 import com.zjh.traffic.app.Application.App;
 
+import java.io.IOError;
+
 /**
  * 阈值设置
  */
@@ -44,9 +46,13 @@ public class ThresholdSettingFragment extends Fragment {
         btn_thresholdsetting.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                App.setAlerting(Integer.parseInt(threshold_ed.getText().toString()));
-                App.showAlertDialog(getContext(), "提醒", "设置成功", null);
-                threshold_tv.setText(App.getAlerting() + "");
+                try {
+                    App.setAlerting(Integer.parseInt(threshold_ed.getText().toString()));
+                    App.showAlertDialog(getContext(), "提醒", "设置成功", null);
+                    threshold_tv.setText(App.getAlerting() + "");
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
         });
     }

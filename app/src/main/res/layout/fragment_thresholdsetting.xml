@@ -62,6 +62,7 @@
         <Button
             android:id="@+id/btn_thresholdsetting"
             android:layout_width="wrap_content"
+            android:background="@drawable/bg_edittext_selector"
             android:layout_height="wrap_content"
             android:text="设置" />
 
