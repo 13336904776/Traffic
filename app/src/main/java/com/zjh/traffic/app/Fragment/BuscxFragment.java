@@ -90,7 +90,7 @@ public class BuscxFragment extends Fragment {
                 for (int i = 0; i < BusId.length; i++) {
                     if (i != 0) {
                         try {
-                            Thread.sleep(200);
+                            Thread.sleep(500);
                         } catch (InterruptedException e) {
                             e.printStackTrace();
                         }

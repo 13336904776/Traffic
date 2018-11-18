@@ -32,8 +32,8 @@ public class NetUtils {
                     HttpURLConnection connection = (HttpURLConnection) murl.openConnection();
                     connection.setRequestMethod("POST");
                     connection.setRequestProperty("Content-Type", "application/json");
-                    connection.setReadTimeout(8 * 1000);
-                    connection.setConnectTimeout(8 * 1000);
+                    connection.setReadTimeout(6 * 1000);
+                    connection.setConnectTimeout(6 * 1000);
                     connection.setDoOutput(true);
                     connection.setDoInput(true);
                     if (requestBody != null) {

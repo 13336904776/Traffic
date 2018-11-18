@@ -6,7 +6,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class GetBusStationInfoRequest extends BaseRequest {
-    private int BusStationID;
+    private int BusStationId;
     private String UserName;
 
     @Override
@@ -16,7 +16,7 @@ public class GetBusStationInfoRequest extends BaseRequest {
 
     @Override
     public BaseRequest setParams(Object[] params) {
-        this.BusStationID = Integer.parseInt(params[0].toString());
+        this.BusStationId = Integer.parseInt(params[0].toString());
         this.UserName = params[1].toString();
         return this;
     }
@@ -25,16 +25,18 @@ public class GetBusStationInfoRequest extends BaseRequest {
     public String getRequestBody() {
         JSONObject body = new JSONObject();
         try {
-            body.put("BusStationID", this.BusStationID);
+            body.put("BusStationId", this.BusStationId);
             body.put("UserName", this.UserName);
         } catch (JSONException e) {
             e.printStackTrace();
         }
+        Log.i("zjh_GetBusStationInfo", body.toString());
         return body.toString();
     }
 
     @Override
     public Object onResponseParse(String response) {
-        return "";
+        Log.i("zjh_GetBusStationInfo", response);
+        return response;
     }
 }
