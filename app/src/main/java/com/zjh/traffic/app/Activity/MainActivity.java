@@ -22,6 +22,8 @@ import com.zjh.traffic.app.Dialog.RechargeDialog;
 import com.zjh.traffic.app.Fragment.AccountFragment;
 import com.zjh.traffic.app.Fragment.BuscxFragment;
 import com.zjh.traffic.app.Fragment.PersonalcenterFragment;
+import com.zjh.traffic.app.Fragment.TrafficLightManagementFragment;
+import com.zjh.traffic.app.Fragment.VehicleViolationFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,6 +48,8 @@ public class MainActivity extends BaseActivity implements AdapterView.OnItemClic
     private FragmentTransaction fragmentTransaction;
     private AccountFragment accountFragment;
     private BuscxFragment buscxFragment;
+    private TrafficLightManagementFragment trafficLightManagementFragment;
+    private VehicleViolationFragment vehicleViolationFragment;
     private PersonalcenterFragment personalcenterFragment;
 
     @Override
@@ -67,7 +71,7 @@ public class MainActivity extends BaseActivity implements AdapterView.OnItemClic
             @SuppressLint("CommitTransaction")
             @Override
             public void onClick(View v) {
-                title.setText(list.get(2));
+                title.setText(list.get(4));
                 batchRecharge.setVisibility(View.GONE);
                 rechargeRecord.setVisibility(View.GONE);
                 getSupportFragmentManager().beginTransaction().
@@ -95,6 +99,8 @@ public class MainActivity extends BaseActivity implements AdapterView.OnItemClic
         list = new ArrayList();
         list.add("账户管理");
         list.add("公交查询");
+        list.add("红绿灯管理");
+        list.add("车辆违章");
         list.add("个人中心");
         list.add("退出登录");
         menuList.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_expandable_list_item_1, list));
@@ -102,6 +108,8 @@ public class MainActivity extends BaseActivity implements AdapterView.OnItemClic
 
         accountFragment = new AccountFragment();
         buscxFragment = new BuscxFragment();
+        trafficLightManagementFragment = new TrafficLightManagementFragment();
+        vehicleViolationFragment = new VehicleViolationFragment();
         personalcenterFragment = new PersonalcenterFragment();
     }
 
@@ -129,9 +137,21 @@ public class MainActivity extends BaseActivity implements AdapterView.OnItemClic
                 title.setText(list.get(2));
                 batchRecharge.setVisibility(View.GONE);
                 rechargeRecord.setVisibility(View.GONE);
-                fragmentTransaction.replace(R.id.frameLayout, personalcenterFragment);
+                fragmentTransaction.replace(R.id.frameLayout, trafficLightManagementFragment);
                 break;
             case 3:
+                title.setText(list.get(3));
+                batchRecharge.setVisibility(View.GONE);
+                rechargeRecord.setVisibility(View.GONE);
+                fragmentTransaction.replace(R.id.frameLayout, vehicleViolationFragment);
+                break;
+            case 4:
+                title.setText(list.get(4));
+                batchRecharge.setVisibility(View.GONE);
+                rechargeRecord.setVisibility(View.GONE);
+                fragmentTransaction.replace(R.id.frameLayout, personalcenterFragment);
+                break;
+            case 5:
                 App.showAlertDialog(MainActivity.this, "提醒", "确定退出登录吗",
                         new DialogInterface.OnClickListener() {
                             @Override

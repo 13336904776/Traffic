@@ -1,4 +1,4 @@
-package com.zjh.traffic.app.Fragment.ChildFragment;
+package com.zjh.traffic.app.Fragment;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -11,17 +11,21 @@ import android.view.ViewGroup;
 import com.zjh.traffic.R;
 
 /**
- * 个人信息
+ * 车辆违章
  */
-public class PersonalDataFragment extends Fragment {
+public class VehicleViolationFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_personaldata, null);
+        return inflater.inflate(R.layout.fragment_vehicleviolation,null);
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        initView(view);
+    }
+
+    private void initView(View view) {
     }
 }

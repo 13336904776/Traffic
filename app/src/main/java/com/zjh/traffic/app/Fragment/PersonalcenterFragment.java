@@ -20,6 +20,9 @@ import com.zjh.traffic.app.Fragment.ChildFragment.ThresholdSettingFragment;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * 个人中心
+ */
 public class PersonalcenterFragment extends Fragment {
     private TabLayout tabLayout;
     private ViewPager viewPager;

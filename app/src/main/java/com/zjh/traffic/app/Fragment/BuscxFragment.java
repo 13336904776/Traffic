@@ -27,6 +27,9 @@ import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
+/**
+ * 公交查询
+ */
 public class BuscxFragment extends Fragment {
     private List<buscxGroupBean> buscxGroupList;
     private List<buscxItemBean> buscxItemList_1;

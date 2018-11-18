@@ -10,6 +10,9 @@ import android.view.ViewGroup;
 
 import com.zjh.traffic.R;
 
+/**
+ * 充值记录
+ */
 public class RechargeRecordFragment extends Fragment {
     @Nullable
     @Override

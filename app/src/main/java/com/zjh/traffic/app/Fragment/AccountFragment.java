@@ -25,7 +25,9 @@ import com.zjh.traffic.app.Request.GetCarAccountBalanceRequest;
 import java.util.ArrayList;
 import java.util.List;
 
-
+/**
+ * 账户管理
+ */
 public class AccountFragment extends Fragment {
 
     private ListView carList;

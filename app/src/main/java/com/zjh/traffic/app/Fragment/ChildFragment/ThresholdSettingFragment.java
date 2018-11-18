@@ -15,6 +15,9 @@ import android.widget.TextView;
 import com.zjh.traffic.R;
 import com.zjh.traffic.app.Application.App;
 
+/**
+ * 阈值设置
+ */
 public class ThresholdSettingFragment extends Fragment {
     private TextView threshold_tv;
     private EditText threshold_ed;
