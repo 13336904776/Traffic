@@ -6,7 +6,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="25dp"
         android:layout_margin="10dp"
         android:gravity="center"
         android:orientation="horizontal">
@@ -16,7 +16,7 @@
             android:layout_height="wrap_content"
             android:text="排序:"
             android:textColor="@color/colorBlack"
-            android:textSize="20dp" />
+            android:textSize="18dp" />
 
         <Spinner
             android:id="@+id/spinner"
@@ -41,16 +41,564 @@
 
     </LinearLayout>
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center">
+        android:layout_height="match_parent">
 
-        <TableLayout
-            android:id="@+id/tableLayout"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center">
 
-    </LinearLayout>
+            <TableLayout
+                android:id="@+id/tableLayout"
+                android:layout_width="487dp"
+                android:layout_height="wrap_content">
 
+                <View
+                    android:layout_width="wrap_content"
+                    android:layout_height="1dp"
+                    android:background="@color/colorBlack" />
+
+                <TableRow android:gravity="center">
+
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="40dp"
+                        android:background="@color/colorBlack" />
+
+                    <TextView
+                        android:layout_width="80dp"
+                        android:gravity="center"
+                        android:text="路口" />
+
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="40dp"
+                        android:background="@color/colorBlack" />
+
+                    <TextView
+                        android:layout_width="80dp"
+                        android:gravity="center"
+                        android:text="红灯时长(S)" />
+
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="40dp"
+                        android:background="@color/colorBlack" />
+
+                    <TextView
+                        android:layout_width="80dp"
+                        android:gravity="center"
+                        android:text="黄灯时长(S)" />
+
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="40dp"
+                        android:background="@color/colorBlack" />
+
+                    <TextView
+                        android:layout_width="80dp"
+                        android:gravity="center"
+                        android:text="绿灯时长(S)" />
+
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="40dp"
+                        android:background="@color/colorBlack" />
+
+                    <TextView
+                        android:layout_width="80dp"
+                        android:gravity="center"
+                        android:text="操作项" />
+
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="40dp"
+                        android:background="@color/colorBlack" />
+
+                    <TextView
+                        android:layout_width="80dp"
+                        android:gravity="center"
+                        android:text="设置" />
+
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="40dp"
+                        android:background="@color/colorBlack" />
+                </TableRow>
+
+                <View
+                    android:layout_width="wrap_content"
+                    android:layout_height="1dp"
+                    android:background="@color/colorBlack" />
+
+                <TableRow android:gravity="center">
+
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="40dp"
+                        android:background="@color/colorBlack" />
+
+                    <TextView
+                        android:id="@+id/row0Line0"
+                        android:layout_width="80dp"
+                        android:gravity="center"
+                        android:text="1" />
+
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="40dp"
+                        android:background="@color/colorBlack" />
+
+                    <TextView
+                        android:id="@+id/row0Line1"
+                        android:layout_width="80dp"
+                        android:gravity="center"
+                        android:text="0" />
+
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="40dp"
+                        android:background="@color/colorBlack" />
+
+                    <TextView
+                        android:id="@+id/row0Line2"
+                        android:layout_width="80dp"
+                        android:gravity="center"
+                        android:text="0" />
+
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="40dp"
+                        android:background="@color/colorBlack" />
+
+                    <TextView
+                        android:id="@+id/row0Line3"
+                        android:layout_width="80dp"
+                        android:gravity="center"
+                        android:text="0" />
+
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="40dp"
+                        android:background="@color/colorBlack" />
+
+                    <CheckBox android:layout_gravity="center" />
+
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="40dp"
+                        android:background="@color/colorBlack" />
+
+                    <Button
+                        android:layout_width="80dp"
+                        android:layout_height="22dp"
+                        android:background="@drawable/bg_edittext_selector"
+                        android:gravity="center"
+                        android:text="设置"
+                        android:textSize="12dp" />
+
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="40dp"
+                        android:background="@color/colorBlack" />
+                </TableRow>
+
+                <View
+                    android:layout_width="wrap_content"
+                    android:layout_height="1dp"
+                    android:background="@color/colorBlack" />
+
+                <TableRow android:gravity="center">
+
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="40dp"
+                        android:background="@color/colorBlack" />
+
+                    <TextView
+                        android:id="@+id/row1Line0"
+                        android:layout_width="80dp"
+                        android:gravity="center"
+                        android:text="2" />
+
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="40dp"
+                        android:background="@color/colorBlack" />
+
+                    <TextView
+                        android:id="@+id/row1Line1"
+                        android:layout_width="80dp"
+                        android:gravity="center"
+                        android:text="0" />
+
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="40dp"
+                        android:background="@color/colorBlack" />
+
+                    <TextView
+                        android:id="@+id/row1Line2"
+                        android:layout_width="80dp"
+                        android:gravity="center"
+                        android:text="0" />
+
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="40dp"
+                        android:background="@color/colorBlack" />
+
+                    <TextView
+                        android:id="@+id/row1Line3"
+                        android:layout_width="80dp"
+                        android:gravity="center"
+                        android:text="0" />
+
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="40dp"
+                        android:background="@color/colorBlack" />
+
+                    <CheckBox android:layout_gravity="center" />
+
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="40dp"
+                        android:background="@color/colorBlack" />
+
+                    <Button
+                        android:layout_width="80dp"
+                        android:layout_height="22dp"
+                        android:background="@drawable/bg_edittext_selector"
+                        android:gravity="center"
+                        android:text="设置"
+                        android:textSize="12dp" />
+
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="40dp"
+                        android:background="@color/colorBlack" />
+                </TableRow>
+
+                <View
+                    android:layout_width="wrap_content"
+                    android:layout_height="1dp"
+                    android:background="@color/colorBlack" />
+
+                <TableRow android:gravity="center">
+
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="40dp"
+                        android:background="@color/colorBlack" />
+
+                    <TextView
+                        android:id="@+id/row2Line0"
+                        android:layout_width="80dp"
+                        android:gravity="center"
+                        android:text="3" />
+
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="40dp"
+                        android:background="@color/colorBlack" />
+
+                    <TextView
+                        android:id="@+id/row2Line1"
+                        android:layout_width="80dp"
+                        android:gravity="center"
+                        android:text="0" />
+
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="40dp"
+                        android:background="@color/colorBlack" />
+
+                    <TextView
+                        android:id="@+id/row2Line2"
+                        android:layout_width="80dp"
+                        android:gravity="center"
+                        android:text="0" />
+
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="40dp"
+                        android:background="@color/colorBlack" />
+
+                    <TextView
+                        android:id="@+id/row2Line3"
+                        android:layout_width="80dp"
+                        android:gravity="center"
+                        android:text="0" />
+
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="40dp"
+                        android:background="@color/colorBlack" />
+
+                    <CheckBox android:layout_gravity="center" />
+
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="40dp"
+                        android:background="@color/colorBlack" />
+
+                    <Button
+                        android:layout_width="80dp"
+                        android:layout_height="22dp"
+                        android:background="@drawable/bg_edittext_selector"
+                        android:gravity="center"
+                        android:text="设置"
+                        android:textSize="12dp" />
+
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="40dp"
+                        android:background="@color/colorBlack" />
+                </TableRow>
+
+                <View
+                    android:layout_width="wrap_content"
+                    android:layout_height="1dp"
+                    android:background="@color/colorBlack" />
+
+                <TableRow android:gravity="center">
+
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="40dp"
+                        android:background="@color/colorBlack" />
+
+                    <TextView
+                        android:id="@+id/row3Line0"
+                        android:layout_width="80dp"
+                        android:gravity="center"
+                        android:text="4" />
+
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="40dp"
+                        android:background="@color/colorBlack" />
+
+                    <TextView
+                        android:id="@+id/row3Line1"
+                        android:layout_width="80dp"
+                        android:gravity="center"
+                        android:text="0" />
+
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="40dp"
+                        android:background="@color/colorBlack" />
+
+                    <TextView
+                        android:id="@+id/row3Line2"
+                        android:layout_width="80dp"
+                        android:gravity="center"
+                        android:text="0" />
+
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="40dp"
+                        android:background="@color/colorBlack" />
+
+                    <TextView
+                        android:id="@+id/row3Line3"
+                        android:layout_width="80dp"
+                        android:gravity="center"
+                        android:text="0" />
+
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="40dp"
+                        android:background="@color/colorBlack" />
+
+                    <CheckBox android:layout_gravity="center" />
+
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="40dp"
+                        android:background="@color/colorBlack" />
+
+                    <Button
+                        android:layout_width="80dp"
+                        android:layout_height="22dp"
+                        android:background="@drawable/bg_edittext_selector"
+                        android:gravity="center"
+                        android:text="设置"
+                        android:textSize="12dp" />
+
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="40dp"
+                        android:background="@color/colorBlack" />
+                </TableRow>
+
+                <View
+                    android:layout_width="wrap_content"
+                    android:layout_height="1dp"
+                    android:background="@color/colorBlack" />
+
+                <TableRow android:gravity="center">
+
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="40dp"
+                        android:background="@color/colorBlack" />
+
+                    <TextView
+                        android:id="@+id/row4Line0"
+                        android:layout_width="80dp"
+                        android:gravity="center"
+                        android:text="5" />
+
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="40dp"
+                        android:background="@color/colorBlack" />
+
+                    <TextView
+                        android:id="@+id/row4Line1"
+                        android:layout_width="80dp"
+                        android:gravity="center"
+                        android:text="0" />
+
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="40dp"
+                        android:background="@color/colorBlack" />
+
+                    <TextView
+                        android:id="@+id/row4Line2"
+                        android:layout_width="80dp"
+                        android:gravity="center"
+                        android:text="0" />
+
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="40dp"
+                        android:background="@color/colorBlack" />
+
+                    <TextView
+                        android:id="@+id/row4Line3"
+                        android:layout_width="80dp"
+                        android:gravity="center"
+                        android:text="0" />
+
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="40dp"
+                        android:background="@color/colorBlack" />
+
+                    <CheckBox android:layout_gravity="center" />
+
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="40dp"
+                        android:background="@color/colorBlack" />
+
+                    <Button
+                        android:layout_width="80dp"
+                        android:layout_height="22dp"
+                        android:background="@drawable/bg_edittext_selector"
+                        android:gravity="center"
+                        android:text="设置"
+                        android:textSize="12dp" />
+
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="40dp"
+                        android:background="@color/colorBlack" />
+                </TableRow>
+
+                <View
+                    android:layout_width="wrap_content"
+                    android:layout_height="1dp"
+                    android:background="@color/colorBlack" />
+
+
+                <TableRow android:gravity="center">
+
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="40dp"
+                        android:background="@color/colorBlack" />
+
+                    <TextView
+                        android:id="@+id/row5Line0"
+                        android:layout_width="80dp"
+                        android:gravity="center"
+                        android:text="6" />
+
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="40dp"
+                        android:background="@color/colorBlack" />
+
+                    <TextView
+                        android:id="@+id/row5Line1"
+                        android:layout_width="80dp"
+                        android:gravity="center"
+                        android:text="0" />
+
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="40dp"
+                        android:background="@color/colorBlack" />
+
+                    <TextView
+                        android:id="@+id/row5Line2"
+                        android:layout_width="80dp"
+                        android:gravity="center"
+                        android:text="0" />
+
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="40dp"
+                        android:background="@color/colorBlack" />
+
+                    <TextView
+                        android:id="@+id/row5Line3"
+                        android:layout_width="80dp"
+                        android:gravity="center"
+                        android:text="0" />
+
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="40dp"
+                        android:background="@color/colorBlack" />
+
+                    <CheckBox android:layout_gravity="center" />
+
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="40dp"
+                        android:background="@color/colorBlack" />
+
+                    <Button
+                        android:layout_width="80dp"
+                        android:layout_height="22dp"
+                        android:background="@drawable/bg_edittext_selector"
+                        android:gravity="center"
+                        android:text="设置"
+                        android:textSize="12dp" />
+
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="40dp"
+                        android:background="@color/colorBlack" />
+                </TableRow>
+
+                <View
+                    android:layout_width="wrap_content"
+                    android:layout_height="1dp"
+                    android:background="@color/colorBlack" />
+
+            </TableLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
 </LinearLayout>
