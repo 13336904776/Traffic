@@ -84,7 +84,7 @@
 
             <RelativeLayout
                 android:layout_width="120dp"
-                android:layout_height="80dp"
+                android:layout_height="100dp"
                 android:layout_margin="5dp"
                 android:background="#d9ecfe">
 
@@ -100,13 +100,13 @@
                 <TextView
                     android:id="@+id/UVI_data"
                     android:layout_width="69dp"
-                    android:layout_height="40dp"
+                    android:layout_height="60dp"
                     android:layout_alignParentBottom="true"
                     android:layout_marginStart="-74dp"
                     android:layout_marginBottom="6dp"
                     android:layout_toEndOf="@+id/imageView1"
                     android:text="涂擦 SPF 大于 15、 PA+防晒护肤品 "
-                    android:textSize="8dp" />
+                    android:textSize="10dp" />
 
                 <TextView
                     android:id="@+id/UVI_intensity"
@@ -123,7 +123,7 @@
 
             <RelativeLayout
                 android:layout_width="120dp"
-                android:layout_height="80dp"
+                android:layout_height="100dp"
                 android:layout_margin="5dp"
                 android:background="#d9ecfe">
 
@@ -139,13 +139,13 @@
                 <TextView
                     android:id="@+id/cold_data"
                     android:layout_width="69dp"
-                    android:layout_height="40dp"
+                    android:layout_height="60dp"
                     android:layout_alignParentBottom="true"
                     android:layout_marginStart="-74dp"
                     android:layout_marginBottom="6dp"
                     android:layout_toEndOf="@+id/imageView2"
                     android:text="温度低，风较大，较易发生感冒，注意防护"
-                    android:textSize="8dp" />
+                    android:textSize="10dp" />
 
                 <TextView
                     android:id="@+id/cold_intensity"
@@ -160,7 +160,7 @@
 
             <RelativeLayout
                 android:layout_width="120dp"
-                android:layout_height="80dp"
+                android:layout_height="100dp"
                 android:layout_margin="5dp"
                 android:background="#d9ecfe">
 
@@ -176,13 +176,13 @@
                 <TextView
                     android:id="@+id/dress_data"
                     android:layout_width="69dp"
-                    android:layout_height="40dp"
+                    android:layout_height="60dp"
                     android:layout_alignParentBottom="true"
                     android:layout_marginStart="-74dp"
                     android:layout_marginBottom="6dp"
                     android:layout_toEndOf="@+id/imageView3"
                     android:text="建议穿短袖衬衫、单裤等服装"
-                    android:textSize="8dp" />
+                    android:textSize="10dp" />
 
                 <TextView
                     android:id="@+id/dress_intensity"
@@ -197,7 +197,7 @@
 
             <RelativeLayout
                 android:layout_width="120dp"
-                android:layout_height="80dp"
+                android:layout_height="100dp"
                 android:layout_margin="5dp"
                 android:background="#d9ecfe">
 
@@ -213,13 +213,13 @@
                 <TextView
                     android:id="@+id/sports_data"
                     android:layout_width="69dp"
-                    android:layout_height="40dp"
+                    android:layout_height="60dp"
                     android:layout_alignParentBottom="true"
                     android:layout_marginStart="-74dp"
                     android:layout_marginBottom="6dp"
                     android:layout_toEndOf="@+id/imageView4"
                     android:text="气候适宜，推荐您进行户外运动"
-                    android:textSize="8dp" />
+                    android:textSize="10dp" />
 
                 <TextView
                     android:id="@+id/sports_intensity"
@@ -234,7 +234,7 @@
 
             <RelativeLayout
                 android:layout_width="120dp"
-                android:layout_height="80dp"
+                android:layout_height="100dp"
                 android:layout_margin="5dp"
                 android:background="#d9ecfe">
 
@@ -250,13 +250,13 @@
                 <TextView
                     android:id="@+id/air_data"
                     android:layout_width="69dp"
-                    android:layout_height="40dp"
+                    android:layout_height="60dp"
                     android:layout_alignParentBottom="true"
                     android:layout_marginStart="-74dp"
                     android:layout_marginBottom="6dp"
                     android:layout_toEndOf="@+id/imageView5"
                     android:text="空气质量非常好，非常适合户外活动，趁机出去多呼吸新鲜空气"
-                    android:textSize="8dp" />
+                    android:textSize="10dp" />
 
                 <TextView
                     android:id="@+id/air_intensity"
