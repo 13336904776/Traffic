@@ -1,10 +1,279 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="生活助手" />
-</android.support.constraint.ConstraintLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:background="#f9f9f9"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="19°"
+                        android:textColor="#2937fa"
+                        android:textSize="80dp" />
+
+                    <TextView
+                        android:id="@+id/textView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="今天：12-20℃"
+                        android:textColor="#2937fa"
+                        android:textSize="22dp" />
+                </LinearLayout>
+
+                <ImageButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="20dp"
+                    android:background="@color/colorWhile"
+                    android:src="@drawable/ic_sx" />
+            </LinearLayout>
+
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
+
+            </RelativeLayout>
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:text="今日生活指数"
+            android:textColor="#009dff"
+            android:textSize="20dp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="#598e8e8e" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:background="#f9f9f9"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <RelativeLayout
+                android:layout_width="120dp"
+                android:layout_height="80dp"
+                android:layout_margin="5dp"
+                android:background="#d9ecfe">
+
+                <ImageView
+                    android:id="@+id/imageView"
+                    android:layout_width="44dp"
+                    android:layout_height="39dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="76dp"
+                    app:srcCompat="@drawable/ic_zwx" />
+
+                <TextView
+                    android:id="@+id/textView2"
+                    android:layout_width="69dp"
+                    android:layout_height="40dp"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginStart="-74dp"
+                    android:layout_marginBottom="6dp"
+                    android:layout_toEndOf="@+id/imageView"
+                    android:text="涂擦 SPF 大于 15、 PA+防晒护肤品 "
+                    android:textSize="8dp" />
+
+                <TextView
+                    android:id="@+id/textView4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignStart="@+id/textView2"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginTop="13dp"
+                    android:text="中等(100)"
+                    android:textColor="#237dd4" />
+
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="120dp"
+                android:layout_height="80dp"
+                android:layout_margin="5dp"
+                android:background="#d9ecfe">
+
+                <ImageView
+                    android:id="@+id/imageView0"
+                    android:layout_width="44dp"
+                    android:layout_height="39dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="76dp"
+                    app:srcCompat="@drawable/ic_gmzs" />
+
+                <TextView
+                    android:id="@+id/textView20"
+                    android:layout_width="69dp"
+                    android:layout_height="40dp"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginStart="-74dp"
+                    android:layout_marginBottom="6dp"
+                    android:layout_toEndOf="@+id/imageView0"
+                    android:text="温度低，风较大，较易发生感冒，注意防护"
+                    android:textSize="8dp" />
+
+                <TextView
+                    android:id="@+id/textView40"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignStart="@+id/textView20"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginTop="13dp"
+                    android:text="较易发(5)"
+                    android:textColor="#237dd4" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="120dp"
+                android:layout_height="80dp"
+                android:layout_margin="5dp"
+                android:background="#d9ecfe">
+
+                <ImageView
+                    android:id="@+id/imageView00"
+                    android:layout_width="44dp"
+                    android:layout_height="39dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="76dp"
+                    app:srcCompat="@drawable/ic_cyzs" />
+
+                <TextView
+                    android:id="@+id/textView200"
+                    android:layout_width="69dp"
+                    android:layout_height="40dp"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginStart="-74dp"
+                    android:layout_marginBottom="6dp"
+                    android:layout_toEndOf="@+id/imageView00"
+                    android:text="建议穿短袖衬衫、单裤等服装"
+                    android:textSize="8dp" />
+
+                <TextView
+                    android:id="@+id/textView400"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignStart="@+id/textView200"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginTop="13dp"
+                    android:text="舒适(21)"
+                    android:textColor="#237dd4" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="120dp"
+                android:layout_height="80dp"
+                android:layout_margin="5dp"
+                android:background="#d9ecfe">
+
+                <ImageView
+                    android:id="@+id/imageView000"
+                    android:layout_width="44dp"
+                    android:layout_height="39dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="76dp"
+                    app:srcCompat="@drawable/iv_ydzs" />
+
+                <TextView
+                    android:id="@+id/textView2000"
+                    android:layout_width="69dp"
+                    android:layout_height="40dp"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginStart="-74dp"
+                    android:layout_marginBottom="6dp"
+                    android:layout_toEndOf="@+id/imageView000"
+                    android:text="气候适宜，推荐您进行户外运动"
+                    android:textSize="8dp" />
+
+                <TextView
+                    android:id="@+id/textView4000"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignStart="@+id/textView2000"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginTop="13dp"
+                    android:text="适宜(800)"
+                    android:textColor="#237dd4" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="120dp"
+                android:layout_height="80dp"
+                android:layout_margin="5dp"
+                android:background="#d9ecfe">
+
+                <ImageView
+                    android:id="@+id/imageView0000"
+                    android:layout_width="44dp"
+                    android:layout_height="39dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="76dp"
+                    app:srcCompat="@drawable/ic_kqzs" />
+
+                <TextView
+                    android:id="@+id/textView20000"
+                    android:layout_width="69dp"
+                    android:layout_height="40dp"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginStart="-74dp"
+                    android:layout_marginBottom="6dp"
+                    android:layout_toEndOf="@+id/imageView0000"
+                    android:text="空气质量非常好，非常适合户外活动，趁机出去多呼吸新鲜空气"
+                    android:textSize="8dp" />
+
+                <TextView
+                    android:id="@+id/textView40000"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignStart="@+id/textView20000"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginTop="13dp"
+                    android:text="优(10)"
+                    android:textColor="#237dd4" />
+            </RelativeLayout>
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:text="整点天气实况"
+            android:textColor="#009dff"
+            android:textSize="20dp" />
+    </LinearLayout>
+</ScrollView>
