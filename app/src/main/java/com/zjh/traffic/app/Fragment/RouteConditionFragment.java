@@ -1,6 +1,7 @@
 package com.zjh.traffic.app.Fragment;
 
 import android.annotation.SuppressLint;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -15,10 +16,13 @@ import com.zjh.traffic.R;
 import com.zjh.traffic.app.Application.App;
 import com.zjh.traffic.app.Callback.OnResponseListener;
 import com.zjh.traffic.app.Request.GetAllSenseRequest;
+import com.zjh.traffic.app.Request.GetRoadStatusRequest;
 
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 /**
  * 路况查询
@@ -26,6 +30,9 @@ import java.util.List;
 public class RouteConditionFragment extends Fragment implements View.OnClickListener {
     private TextView time_tv, temperature_tv, humidity_tv, pm_tv;
     private ImageButton btn_refresh;
+    private TextView road1, road2, road3, road4, road5_0, road5_1, road5_2, road6, road7;
+    private TimerTask task = null;
+    private Timer timer = null;
 
     @Nullable
     @Override
@@ -37,6 +44,44 @@ public class RouteConditionFragment extends Fragment implements View.OnClickList
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         initView(view);
+        initTask();
+        if (timer == null) {
+            timer = new Timer();
+        } else {
+            timer.cancel();
+            timer = new Timer();
+        }
+        timer.schedule(task, 0, 3 * 1000);
+    }
+
+    private void initTask() {
+        task = new TimerTask() {
+            @Override
+            public void run() {
+
+                for (int i = 1; i <= 7; i++) {
+                    if (i != 1) {
+                        try {
+                            Thread.sleep(500);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                    final int finalI = i;
+                    new GetRoadStatusRequest().setParams(new Object[]{i, App.getUserName()})
+                            .sendRequest(new OnResponseListener() {
+                                @Override
+                                public void onResponse(Object result) {
+                                    try {
+                                        changeColor(finalI, Integer.parseInt(result.toString()));
+                                    } catch (Exception e) {
+                                        e.printStackTrace();
+                                    }
+                                }
+                            });
+                }
+            }
+        };
     }
 
     private void initView(View view) {
@@ -45,10 +90,29 @@ public class RouteConditionFragment extends Fragment implements View.OnClickList
         humidity_tv = view.findViewById(R.id.humidity_tv);
         pm_tv = view.findViewById(R.id.pm_tv);
         btn_refresh = view.findViewById(R.id.btn_refresh);
-
         time_tv.setText(getTime());
         upData();
         btn_refresh.setOnClickListener(this);
+
+        road1 = view.findViewById(R.id.road1);
+        road2 = view.findViewById(R.id.road2);
+        road3 = view.findViewById(R.id.road3);
+        road4 = view.findViewById(R.id.road4);
+        road5_0 = view.findViewById(R.id.road5_0);
+        road5_1 = view.findViewById(R.id.road5_1);
+        road5_2 = view.findViewById(R.id.road5_2);
+        road6 = view.findViewById(R.id.road6);
+        road7 = view.findViewById(R.id.road7);
+        road1.setBackgroundColor(Color.parseColor("#6ab82e"));
+        road1.setBackgroundColor(Color.parseColor("#6ab82e"));
+        road2.setBackgroundColor(Color.parseColor("#6ab82e"));
+        road3.setBackgroundColor(Color.parseColor("#6ab82e"));
+        road4.setBackgroundColor(Color.parseColor("#6ab82e"));
+        road5_0.setBackgroundColor(Color.parseColor("#6ab82e"));
+        road5_1.setBackgroundColor(Color.parseColor("#6ab82e"));
+        road5_2.setBackgroundColor(Color.parseColor("#6ab82e"));
+        road6.setBackgroundColor(Color.parseColor("#6ab82e"));
+        road7.setBackgroundColor(Color.parseColor("#6ab82e"));
     }
 
     private String getTime() {
@@ -95,5 +159,61 @@ public class RouteConditionFragment extends Fragment implements View.OnClickList
                         }
                     }
                 });
+    }
+
+    @SuppressLint("Range")
+    private void changeColor(int roadID, int color) {
+        String str_color = "";
+        switch (color) {
+            case 1:
+                str_color = "#6ab82e";
+                break;
+            case 2:
+                str_color = "#ece93a";
+                break;
+            case 3:
+                str_color = "#f49b25";
+                break;
+            case 4:
+                str_color = "#e33532";
+                break;
+            case 5:
+                str_color = "#b01e23";
+                break;
+        }
+        switch (roadID) {
+            case 1:
+                road1.setBackgroundColor(Color.parseColor(str_color));
+                break;
+            case 2:
+                road2.setBackgroundColor(Color.parseColor(str_color));
+                break;
+            case 3:
+                road3.setBackgroundColor(Color.parseColor(str_color));
+                break;
+            case 4:
+                road4.setBackgroundColor(Color.parseColor(str_color));
+                break;
+            case 5:
+                road5_0.setBackgroundColor(Color.parseColor(str_color));
+                road5_1.setBackgroundColor(Color.parseColor(str_color));
+                road5_2.setBackgroundColor(Color.parseColor(str_color));
+                break;
+            case 6:
+                road6.setBackgroundColor(Color.parseColor(str_color));
+                break;
+            case 7:
+                road7.setBackgroundColor(Color.parseColor(str_color));
+                break;
+        }
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        if (timer != null) {
+            timer.cancel();
+            timer = null;
+        }
     }
 }

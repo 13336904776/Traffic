@@ -2,17 +2,141 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#528d14"
     android:orientation="horizontal">
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_margin="10dp"
         android:layout_weight="1.5"
         android:background="@drawable/ic_road">
 
-    </LinearLayout>
+        <TextView
+            android:id="@+id/road2"
+            android:layout_width="13dp"
+            android:layout_height="140dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="190dp"
+            android:layout_marginTop="13dp"
+            android:background="#6ab82e"
+            android:gravity="center"
+            android:text="联想路"
+            android:textColor="@color/colorBlack"
+            android:textSize="11dp" />
+
+        <TextView
+            android:id="@+id/road6"
+            android:layout_width="12dp"
+            android:layout_height="345dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="372dp"
+            android:layout_marginTop="12dp"
+            android:background="#b01e23"
+            android:gravity="center"
+            android:text="环城高速"
+            android:textColor="@color/colorBlack"
+            android:textSize="11dp" />
+
+        <TextView
+            android:id="@+id/road4"
+            android:layout_width="12dp"
+            android:layout_height="152dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="100dp"
+            android:layout_marginTop="167dp"
+            android:background="#ece93a"
+            android:gravity="center"
+            android:text="幸福路"
+            android:textColor="@color/colorBlack"
+            android:textSize="11dp" />
+
+        <TextView
+            android:id="@+id/road3"
+            android:layout_width="12dp"
+            android:layout_height="153dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="192dp"
+            android:layout_marginTop="165dp"
+            android:background="#e33532"
+            android:gravity="center"
+            android:text="医院路"
+            android:textColor="@color/colorBlack"
+            android:textSize="11dp" />
+
+        <TextView
+            android:id="@+id/road7"
+            android:layout_width="58dp"
+            android:layout_height="102dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="258dp"
+            android:layout_marginTop="109dp"
+            android:background="#e33532"
+            android:gravity="center"
+            android:text="停车场"
+            android:textColor="@color/colorBlack"
+            android:textSize="11dp" />
+
+        <TextView
+            android:id="@+id/road5_2"
+            android:layout_width="369dp"
+            android:layout_height="12dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="14dp"
+            android:layout_marginTop="306dp"
+            android:background="#f49b25"
+            android:gravity="center"
+            android:text="环城快速路"
+            android:textColor="@color/colorBlack"
+            android:textSize="11dp" />
+
+        <TextView
+            android:id="@+id/road5_1"
+            android:layout_width="377dp"
+            android:layout_height="14dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="9dp"
+            android:layout_marginTop="5dp"
+            android:background="#f49b25"
+            android:gravity="center"
+            android:text="环城快速路"
+            android:textColor="@color/colorBlack"
+            android:textSize="11dp" />
+
+        <TextView
+            android:id="@+id/road5_0"
+            android:layout_width="13dp"
+            android:layout_height="357dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="6dp"
+            android:layout_marginTop="6dp"
+            android:background="#f49b25"
+            android:gravity="center"
+            android:text="环城快速路"
+            android:textColor="@color/colorBlack"
+            android:textSize="11dp" />
+
+        <TextView
+            android:id="@+id/road1"
+            android:layout_width="12dp"
+            android:layout_height="135dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="99dp"
+            android:layout_marginTop="19dp"
+            android:background="#e33532"
+            android:gravity="center"
+            android:text="学院路"
+            android:textColor="@color/colorBlack"
+            android:textSize="11dp" />
+    </RelativeLayout>
 
     <LinearLayout
         android:layout_width="0dp"
