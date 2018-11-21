@@ -15,6 +15,7 @@ import com.zjh.traffic.R;
 import com.zjh.traffic.app.Application.App;
 import com.zjh.traffic.app.Callback.OnResponseListener;
 import com.zjh.traffic.app.Request.GetAllSenseRequest;
+import com.zjh.traffic.app.Request.GetSenseByNameRequest;
 
 import java.util.List;
 import java.util.Timer;
@@ -41,6 +42,7 @@ public class LifeAssistantFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         initView(view);
+        upDataWeather();
         initTask();
         if (timer == null) {
             timer = new Timer();
@@ -65,6 +67,12 @@ public class LifeAssistantFragment extends Fragment {
         air_intensity = view.findViewById(R.id.air_intensity);
         air_data = view.findViewById(R.id.air_data);
         btn_refresh = view.findViewById(R.id.btn_refresh);
+        btn_refresh.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                upDataWeather();
+            }
+        });
     }
 
     private void initTask() {
@@ -77,7 +85,7 @@ public class LifeAssistantFragment extends Fragment {
                             public void onResponse(Object result) {
                                 try {
                                     List<Integer> list = (List<Integer>) result;
-                                    upData(list);
+                                    upDataLifeIndex(list);
                                 } catch (Exception e) {
                                     e.printStackTrace();
                                 }
@@ -88,7 +96,7 @@ public class LifeAssistantFragment extends Fragment {
     }
 
     @SuppressLint("SetTextI18n")
-    private void upData(List<Integer> list) {
+    private void upDataLifeIndex(List<Integer> list) {
         String[] UVI_array = {"辐射较弱，涂擦SPF12~15、PA+护肤品", "涂擦 SPF 大于 15、PA+防晒护肤品", "尽量减少外出，需要涂抹高倍数防晒霜"};
         String[] cold_array = {"温度低，风较大，较易发生感冒，注意防护", "无明显降温，感冒机率较低"};
         String[] dress_array = {"建议穿长袖衬衫、单裤等服装", "建议穿短袖衬衫、单裤等服装", "适合穿 T 恤、短薄外套等夏季服装"};
@@ -146,6 +154,23 @@ public class LifeAssistantFragment extends Fragment {
             sports_intensity.setText("强(" + list.get(4) + ")");
             sports_data.setText(sports_array[2]);
         }
+    }
+
+    private void upDataWeather() {
+        new GetSenseByNameRequest().setParams(new Object[]{"temperature", App.getUserName()})
+                .sendRequest(new OnResponseListener() {
+                    @SuppressLint("SetTextI18n")
+                    @Override
+                    public void onResponse(Object result) {
+                        try {
+                            temperature_now.setText(result.toString() + "°");
+                            temperature_today.setText("今天：" + (Integer.parseInt(result.toString()) - 10) + "-"
+                                    + (Integer.parseInt(result.toString()) + 10) + "℃");
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
     }
 
     @Override
