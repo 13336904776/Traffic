@@ -12,6 +12,8 @@ import org.achartengine.renderer.XYMultipleSeriesRenderer;
 import org.achartengine.renderer.XYSeriesRenderer;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 public class AverageTemperatureChart extends AbstractDemoChart {
@@ -28,38 +30,70 @@ public class AverageTemperatureChart extends AbstractDemoChart {
     }
 
     public GraphicalView getChartView(Context context) {
-        String[] titles = new String[]{"Crete", "Corfu", "Thassos", "Skiathos"};//图例
-        List<double[]> x = new ArrayList<double[]>();
-        for (int i = 0; i < titles.length; i++) {
-            x.add(new double[]{1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12});//每个序列中点的X坐标
+        String[] titles = {"", ""};
+        List<double[]> x = new ArrayList<>();
+        for (int i = 0; i < 2; i++) {
+            x.add(new double[]{1, 2, 3, 4, 5, 6});//每个序列中点的X坐标
         }
-        List<double[]> values = new ArrayList<double[]>();
-        values.add(new double[]{12.3, 12.5, 13.8, 16.8, 20.4, 24.4, 26.4, 26.1, 23.6, 20.3, 17.2,
-                13.9});//序列1中点的y坐标
-        values.add(new double[]{10, 10, 12, 15, 20, 24, 26, 26, 23, 18, 14, 11});//序列2中点的Y坐标
-        values.add(new double[]{5, 5.3, 8, 12, 17, 22, 24.2, 24, 19, 15, 9, 6});//序列3中点的Y坐标
-        values.add(new double[]{9, 10, 11, 15, 19, 23, 26, 25, 22, 18, 13, 10});//序列4中点的Y坐标
-        int[] colors = new int[]{Color.BLUE, Color.GREEN, Color.CYAN, Color.YELLOW};//每个序列的颜色设置
-        PointStyle[] styles = new PointStyle[]{PointStyle.CIRCLE, PointStyle.DIAMOND,
-                PointStyle.TRIANGLE, PointStyle.SQUARE};//每个序列中点的形状设置
-        XYMultipleSeriesRenderer renderer = buildRenderer(colors, styles);//调用AbstractDemoChart中的方法设置renderer.
-        int length = renderer.getSeriesRendererCount();
-        for (int i = 0; i < length; i++) {
-            ((XYSeriesRenderer) renderer.getSeriesRendererAt(i)).setFillPoints(true);//设置图上的点为实心
-        }
-        setChartSettings(renderer, "Average temperature", "Month", "Temperature", 0.5, 12.5, -10, 40,
-                Color.LTGRAY, Color.LTGRAY);//调用AbstractDemoChart中的方法设置图表的renderer属性.
-        renderer.setXLabels(12);//设置x轴显示12个点,根据setChartSettings的最大值和最小值自动计算点的间隔
-        renderer.setYLabels(10);//设置y轴显示10个点,根据setChartSettings的最大值和最小值自动计算点的间隔
-        renderer.setShowGrid(true);//是否显示网格
-        renderer.setXLabelsAlign(Paint.Align.RIGHT);//刻度线与刻度标注之间的相对位置关系
-        renderer.setYLabelsAlign(Paint.Align.CENTER);//刻度线与刻度标注之间的相对位置关系
-        renderer.setZoomButtonsVisible(true);//是否显示放大缩小按钮
+        List<double[]> y = new ArrayList<>();
+        y.add(new double[]{14, 15, 16, 17, 16, 16});//序列1中点的y坐标
+        y.add(new double[]{22, 24, 25, 25, 25, 22});//序列2中点的Y坐标
+        int[] colors = new int[]{Color.BLUE, Color.RED};//每个序列的颜色设置
+        PointStyle[] styles = new PointStyle[]{PointStyle.CIRCLE, PointStyle.CIRCLE};//每个序列中点的形状设置
 
-        renderer.setPanLimits(new double[]{-10, 20, -10, 40}); //设置拖动时X轴Y轴允许的最大值最小值.
-        renderer.setZoomLimits(new double[]{-10, 20, -10, 40});//设置放大缩小时X轴Y轴允许的最大最小值.
-        GraphicalView view = ChartFactory.getLineChartView(context, buildDataset(titles, x, values), renderer);
+
+        XYMultipleSeriesRenderer renderer = buildRenderer(colors, styles);//调用AbstractDemoChart中的方法设置renderer
+        renderer.setMargins(new int[]{40, 30, 30, 20});//设置外边距，顺序为：上左下右
+        renderer.setShowGridX(true);
+        renderer.setShowGridY(false);
+        renderer.setMarginsColor(Color.parseColor("#f9f9f9"));
+        renderer.setZoomButtonsVisible(false);//设置缩放按钮是否可见
+        renderer.setZoomEnabled(true); //图表是否可以缩放设置
+        renderer.setClickEnabled(true);
+        renderer.setDisplayValues(true);//是否显示值
+        renderer.setShowLegend(false); //显示底部说明
+        renderer.setGridColor(Color.BLACK);//设置网格颜色
+        // 是否支持图表移动
+        renderer.setPanEnabled(false, false);
+        renderer.setPointSize(12);
+
+        String[] days = getTime();
+        renderer.setXLabels(0);
+        renderer.setLabelsTextSize(20);
+
+        for (int i = 1; i <= days.length; i++)
+            renderer.addTextLabel(i, days[i-1]);
+        renderer.setXAxisMin(1);//设置X轴的最小值为0.5
+       renderer.setXAxisMax(6);//设置X轴的最大值为5
+        renderer.setYAxisMin(10);//设置Y轴的最小值为0
+       renderer.setYAxisMax(30);//设置Y轴最大值为500
+
+        for (int i = 0; i < renderer.getSeriesRendererCount(); i++)
+            ((XYSeriesRenderer) renderer.getSeriesRendererAt(i)).setFillPoints(true);//设置图上的点为实心
+        renderer.setXLabelsAlign(Paint.Align.LEFT);//刻度线与刻度标注之间的相对位置关系
+        renderer.setYLabelsAlign(Paint.Align.CENTER);//刻度线与刻度标注之间的相对位置关系
+        GraphicalView view = ChartFactory.getLineChartView(context, buildDataset(titles, x, y), renderer);
         return view;
+    }
+
+    private String[] getTime() {
+        String[] days = new String[6];
+        Date date = new Date();
+        if (date.getDay() == 0)
+            days = new String[]{"昨天", "今天", "明天", "周二", "周三", "周四"};
+        else if (date.getDay() == 1)
+            days = new String[]{"昨天", "今天", "明天", "周三", "周四", "周五"};
+        else if (date.getDay() == 2)
+            days = new String[]{"昨天", "今天", "明天", "周四", "周五", "周六"};
+        else if (date.getDay() == 3)
+            days = new String[]{"昨天", "今天", "明天", "周五", "周六", "周日"};
+        else if (date.getDay() == 4)
+            days = new String[]{"昨天", "今天", "明天", "周六", "周日", "周一"};
+        else if (date.getDay() == 5)
+            days = new String[]{"昨天", "今天", "明天", "周日", "周一", "周二"};
+        else if (date.getDay() == 6)
+            days = new String[]{"昨天", "今天", "明天", "周一", "周二", "周三"};
+        return days;
     }
 
 }
