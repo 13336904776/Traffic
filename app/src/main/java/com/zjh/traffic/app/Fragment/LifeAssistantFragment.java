@@ -1,6 +1,8 @@
 package com.zjh.traffic.app.Fragment;
 
 import android.annotation.SuppressLint;
+import android.graphics.Color;
+import android.graphics.Paint;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -9,13 +11,23 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.zjh.traffic.R;
 import com.zjh.traffic.app.Application.App;
 import com.zjh.traffic.app.Callback.OnResponseListener;
+import com.zjh.traffic.app.Chart.AverageTemperatureChart;
 import com.zjh.traffic.app.Request.GetAllSenseRequest;
 import com.zjh.traffic.app.Request.GetSenseByNameRequest;
+
+import org.achartengine.ChartFactory;
+import org.achartengine.GraphicalView;
+import org.achartengine.chart.PointStyle;
+import org.achartengine.model.XYMultipleSeriesDataset;
+import org.achartengine.model.XYSeries;
+import org.achartengine.renderer.XYMultipleSeriesRenderer;
+import org.achartengine.renderer.XYSeriesRenderer;
 
 import java.util.List;
 import java.util.Timer;
@@ -31,6 +43,8 @@ public class LifeAssistantFragment extends Fragment {
     private ImageButton btn_refresh;
     private TimerTask task = null;
     private Timer timer = null;
+
+    private LinearLayout weatherchart;
 
     @Nullable
     @Override
@@ -53,6 +67,7 @@ public class LifeAssistantFragment extends Fragment {
         timer.schedule(task, 0, 3 * 1000);
     }
 
+
     private void initView(View view) {
         temperature_now = view.findViewById(R.id.temperature_now);
         temperature_today = view.findViewById(R.id.temperature_today);
@@ -73,6 +88,10 @@ public class LifeAssistantFragment extends Fragment {
                 upDataWeather();
             }
         });
+
+        weatherchart = view.findViewById(R.id.weatherchart);
+        AverageTemperatureChart averageTemperatureChart = new AverageTemperatureChart();
+        weatherchart.addView(averageTemperatureChart.getChartView(getContext()));
     }
 
     private void initTask() {
