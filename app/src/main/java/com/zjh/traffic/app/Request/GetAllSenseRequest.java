@@ -37,9 +37,12 @@ public class GetAllSenseRequest extends BaseRequest {
         try {
             String result = new JSONObject(response).getString("RESULT");
             if (result.equals("S")) {
-                list.add(new JSONObject(response).getInt("temperature"));
-                list.add(new JSONObject(response).getInt("humidity"));
-                list.add(new JSONObject(response).getInt("pm2.5"));
+                list.add(new JSONObject(response).getInt("temperature"));//温度
+                list.add(new JSONObject(response).getInt("humidity"));//湿度
+                list.add(new JSONObject(response).getInt("pm2.5"));//pm2.5
+                list.add(new JSONObject(response).getInt("LightIntensity"));//光照强度
+                list.add(new JSONObject(response).getInt("co2"));//二氧化碳
+
             }
             return list;
         } catch (JSONException e) {
