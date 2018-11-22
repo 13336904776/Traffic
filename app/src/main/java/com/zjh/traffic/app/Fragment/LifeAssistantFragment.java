@@ -11,11 +11,16 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import com.github.mikephil.charting.charts.LineChart;
+import com.github.mikephil.charting.data.LineData;
 import com.zjh.traffic.R;
 import com.zjh.traffic.app.Application.App;
 import com.zjh.traffic.app.Callback.OnResponseListener;
+import com.zjh.traffic.app.Chart.LineChartManager;
 import com.zjh.traffic.app.Request.GetAllSenseRequest;
 import com.zjh.traffic.app.Request.GetSenseByNameRequest;
+
+import java.util.Date;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -31,6 +36,8 @@ public class LifeAssistantFragment extends Fragment {
     private TimerTask task = null;
     private Timer timer = null;
 
+    private LineChart weatherLineChart;
+    private LineData lineData;
 
     @Nullable
     @Override
@@ -43,6 +50,7 @@ public class LifeAssistantFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         initView(view);
         upDataWeather();
+        initweatherLineChart(view);
         initTask();
         if (timer == null) {
             timer = new Timer();
@@ -74,6 +82,62 @@ public class LifeAssistantFragment extends Fragment {
                 upDataWeather();
             }
         });
+    }
+
+
+    private void upDataWeather() {
+        new GetSenseByNameRequest().setParams(new Object[]{"temperature", App.getUserName()})
+                .sendRequest(new OnResponseListener() {
+                    @SuppressLint("SetTextI18n")
+                    @Override
+                    public void onResponse(Object result) {
+                        try {
+                            temperature_now.setText(result.toString() + "°");
+                            temperature_today.setText("今天：" + (Integer.parseInt(result.toString()) - 10) + "-"
+                                    + (Integer.parseInt(result.toString()) + 10) + "℃");
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
+    }
+
+    private void initweatherLineChart(View view) {
+        weatherLineChart = view.findViewById(R.id.weatherLineChart);
+        //设置图表的描述
+        weatherLineChart.setDescription("");
+        //设置x轴的数据
+        String[] numX = getTime();
+        //设置y轴的数据
+        float[] datas1 = {22, 24, 25, 25, 25, 22};//数据
+        float[] datas2 = {14, 15, 16, 17, 16, 16};//数据
+        //设置折线的名称
+        LineChartManager.setLineName("最高温度");
+        //设置第二条折线y轴的数据
+        LineChartManager.setLineName1("最低温度");
+        //创建两条折线的图表
+        lineData = LineChartManager.initDoubleLineChart(getContext(), weatherLineChart, numX, datas1, datas2);
+        LineChartManager.initDataStyle(weatherLineChart, lineData, getContext());
+    }
+
+    private String[] getTime() {
+        String[] days = new String[6];
+        Date date = new Date();
+        if (date.getDay() == 0)
+            days = new String[]{"昨天", "今天", "明天", "周二", "周三", "周四"};
+        else if (date.getDay() == 1)
+            days = new String[]{"昨天", "今天", "明天", "周三", "周四", "周五"};
+        else if (date.getDay() == 2)
+            days = new String[]{"昨天", "今天", "明天", "周四", "周五", "周六"};
+        else if (date.getDay() == 3)
+            days = new String[]{"昨天", "今天", "明天", "周五", "周六", "周日"};
+        else if (date.getDay() == 4)
+            days = new String[]{"昨天", "今天", "明天", "周六", "周日", "周一"};
+        else if (date.getDay() == 5)
+            days = new String[]{"昨天", "今天", "明天", "周日", "周一", "周二"};
+        else if (date.getDay() == 6)
+            days = new String[]{"昨天", "今天", "明天", "周一", "周二", "周三"};
+        return days;
     }
 
     private void initTask() {
@@ -155,23 +219,6 @@ public class LifeAssistantFragment extends Fragment {
             sports_intensity.setText("强(" + list.get(4) + ")");
             sports_data.setText(sports_array[2]);
         }
-    }
-
-    private void upDataWeather() {
-        new GetSenseByNameRequest().setParams(new Object[]{"temperature", App.getUserName()})
-                .sendRequest(new OnResponseListener() {
-                    @SuppressLint("SetTextI18n")
-                    @Override
-                    public void onResponse(Object result) {
-                        try {
-                            temperature_now.setText(result.toString() + "°");
-                            temperature_today.setText("今天：" + (Integer.parseInt(result.toString()) - 10) + "-"
-                                    + (Integer.parseInt(result.toString()) + 10) + "℃");
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-                    }
-                });
     }
 
     @Override
