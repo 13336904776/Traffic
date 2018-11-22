@@ -4,7 +4,9 @@ import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,12 +16,21 @@ import android.widget.TextView;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.data.LineData;
 import com.zjh.traffic.R;
+import com.zjh.traffic.app.Adapter.ViewPagerAdapter_fragment;
 import com.zjh.traffic.app.Application.App;
 import com.zjh.traffic.app.Callback.OnResponseListener;
 import com.zjh.traffic.app.Chart.LineChartManager;
+import com.zjh.traffic.app.Fragment.ChildFragment.AirqualityFragment;
+import com.zjh.traffic.app.Fragment.ChildFragment.CarbondioxideFragment;
+import com.zjh.traffic.app.Fragment.ChildFragment.HumidityFragment;
+import com.zjh.traffic.app.Fragment.ChildFragment.PersonalDataFragment;
+import com.zjh.traffic.app.Fragment.ChildFragment.RechargeRecordFragment;
+import com.zjh.traffic.app.Fragment.ChildFragment.TemperatureFragment;
+import com.zjh.traffic.app.Fragment.ChildFragment.ThresholdSettingFragment;
 import com.zjh.traffic.app.Request.GetAllSenseRequest;
 import com.zjh.traffic.app.Request.GetSenseByNameRequest;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Timer;
@@ -38,6 +49,12 @@ public class LifeAssistantFragment extends Fragment {
 
     private LineChart weatherLineChart;
     private LineData lineData;
+
+    private TabLayout tabLayout;
+    private ViewPager viewPager;
+    private ViewPagerAdapter_fragment myViewPagerAdapter;
+    private List<Fragment> fragment;
+    private List<String> title;
 
     @Nullable
     @Override
@@ -59,8 +76,8 @@ public class LifeAssistantFragment extends Fragment {
             timer = new Timer();
         }
         timer.schedule(task, 0, 3 * 1000);
+        initViewPager(view);
     }
-
 
     private void initView(View view) {
         temperature_now = view.findViewById(R.id.temperature_now);
@@ -85,6 +102,9 @@ public class LifeAssistantFragment extends Fragment {
     }
 
 
+    /**
+     * 上部
+     */
     private void upDataWeather() {
         new GetSenseByNameRequest().setParams(new Object[]{"temperature", App.getUserName()})
                 .sendRequest(new OnResponseListener() {
@@ -140,6 +160,9 @@ public class LifeAssistantFragment extends Fragment {
         return days;
     }
 
+    /**
+     * 中部
+     */
     private void initTask() {
         task = new TimerTask() {
             @Override
@@ -219,6 +242,31 @@ public class LifeAssistantFragment extends Fragment {
             sports_intensity.setText("强(" + list.get(4) + ")");
             sports_data.setText(sports_array[2]);
         }
+    }
+
+    /**
+     * 下部
+     *
+     * @param view
+     */
+    private void initViewPager(View view) {
+        tabLayout = view.findViewById(R.id.tabLayout);
+        viewPager = view.findViewById(R.id.viewPager);
+        fragment = new ArrayList<>();
+        title = new ArrayList<>();
+        fragment.add(new AirqualityFragment());
+        fragment.add(new TemperatureFragment());
+        fragment.add(new HumidityFragment());
+        fragment.add(new CarbondioxideFragment());
+        title.add("空气质量");
+        title.add("温度");
+        title.add("相对湿度");
+        title.add("二氧化碳");
+        for (int i = 0; i < title.size(); i++)
+            tabLayout.addTab(tabLayout.newTab().setText(title.get(i)));
+        myViewPagerAdapter = new ViewPagerAdapter_fragment(getChildFragmentManager(), fragment, title);
+        viewPager.setAdapter(myViewPagerAdapter);
+        tabLayout.setupWithViewPager(viewPager);
     }
 
     @Override
