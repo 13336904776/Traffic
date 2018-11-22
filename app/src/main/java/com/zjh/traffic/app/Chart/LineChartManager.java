@@ -27,17 +27,17 @@ public class LineChartManager {
      * @param datas      Y轴的数据
      * @return LineData
      */
-    public static LineData initSingleLineChart(Context context, LineChart mLineChart, int count, float[] datas) {
+    public static LineData initSingleLineChart(Context context, LineChart mLineChart, String[] count, float[] datas) {
 
         ArrayList<String> xValues = new ArrayList<String>();
-        for (int i = 0; i < count; i++) {
+        for (int i = 0; i < count.length; i++) {
             // x轴显示的数据，这里默认使用数字下标显示
-            xValues.add((i) + ":00");
+            xValues.add(count[i]);
         }
 
         // y轴的数据
         ArrayList<Entry> yValues = new ArrayList<Entry>();
-        for (int i = 0; i < count; i++) {
+        for (int i = 0; i < count.length; i++) {
             yValues.add(new Entry(datas[i], i));
         }
         //设置折线的样式
@@ -132,7 +132,6 @@ public class LineChartManager {
 //        MyMakerView mv = new MyMakerView(context, R.layout.item_mark_layout);
 //        mLineChart.setMarkerView(mv);
         lineChart.setDrawBorders(false); //在折线图上添加边框
-        //lineChart.setDescription("时间/数据"); //数据描述
         lineChart.setDrawGridBackground(false); //表格颜色
         lineChart.setGridBackgroundColor(Color.GRAY & 0x70FFFFFF); //表格的颜色，设置一个透明度
         lineChart.setTouchEnabled(true); //可点击
@@ -165,7 +164,9 @@ public class LineChartManager {
         axisRight.setDrawAxisLine(false);
         axisRight.setDrawGridLines(false);
         axisRight.setDrawLabels(false);
-
+        //设置比例图标的显示隐藏
+        Legend legend = lineChart.getLegend();
+        legend.setEnabled(false);
         //设置动画效果
         lineChart.animateY(2000, Easing.EasingOption.Linear);
         lineChart.animateX(2000, Easing.EasingOption.Linear);

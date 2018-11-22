@@ -20,13 +20,10 @@ import com.zjh.traffic.app.Adapter.ViewPagerAdapter_fragment;
 import com.zjh.traffic.app.Application.App;
 import com.zjh.traffic.app.Callback.OnResponseListener;
 import com.zjh.traffic.app.Chart.LineChartManager;
-import com.zjh.traffic.app.Fragment.ChildFragment.AirqualityFragment;
+import com.zjh.traffic.app.Fragment.ChildFragment.AirQualityFragment;
 import com.zjh.traffic.app.Fragment.ChildFragment.CarbondioxideFragment;
 import com.zjh.traffic.app.Fragment.ChildFragment.HumidityFragment;
-import com.zjh.traffic.app.Fragment.ChildFragment.PersonalDataFragment;
-import com.zjh.traffic.app.Fragment.ChildFragment.RechargeRecordFragment;
 import com.zjh.traffic.app.Fragment.ChildFragment.TemperatureFragment;
-import com.zjh.traffic.app.Fragment.ChildFragment.ThresholdSettingFragment;
 import com.zjh.traffic.app.Request.GetAllSenseRequest;
 import com.zjh.traffic.app.Request.GetSenseByNameRequest;
 
@@ -254,7 +251,7 @@ public class LifeAssistantFragment extends Fragment {
         viewPager = view.findViewById(R.id.viewPager);
         fragment = new ArrayList<>();
         title = new ArrayList<>();
-        fragment.add(new AirqualityFragment());
+        fragment.add(new AirQualityFragment());
         fragment.add(new TemperatureFragment());
         fragment.add(new HumidityFragment());
         fragment.add(new CarbondioxideFragment());
