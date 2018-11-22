@@ -141,7 +141,6 @@ public class LineChartManager {
         lineChart.setBackgroundColor(Color.parseColor("#f9f9f9")); //设置背景颜色
 
         lineChart.setData(lineData);
-
         Legend mLegend = lineChart.getLegend(); //设置标示，就是那个一组y的value的
         mLegend.setForm(Legend.LegendForm.SQUARE); //样式
         mLegend.setFormSize(8f); //字体
@@ -157,8 +156,63 @@ public class LineChartManager {
         YAxis axisRight = lineChart.getAxisRight(); //y轴右边标示
         axisLeft.setTextColor(Color.GRAY); //字体颜色
         axisLeft.setTextSize(10f); //字体大小
+        axisLeft.setStartAtZero(false);
         //axisLeft.setAxisMaxValue(800f); //最大值
         axisLeft.setLabelCount(0, false); //显示格数
+        axisLeft.setGridColor(Color.GRAY); //网格线颜色
+
+        axisRight.setDrawAxisLine(false);
+        axisRight.setDrawGridLines(false);
+        axisRight.setDrawLabels(false);
+        //设置比例图标的显示隐藏
+        Legend legend = lineChart.getLegend();
+        legend.setEnabled(false);
+        //设置动画效果
+        lineChart.animateY(2000, Easing.EasingOption.Linear);
+        lineChart.animateX(2000, Easing.EasingOption.Linear);
+        lineChart.invalidate();
+        //lineChart.animateX(2500);  //立即执行动画
+    }
+
+    /**
+     * @Description:初始化图表的样式
+     */
+    public static void initDataStyle2(LineChart lineChart, LineData lineData, Context context) {
+        //设置点击折线点时，显示其数值
+//        MyMakerView mv = new MyMakerView(context, R.layout.item_mark_layout);
+//        mLineChart.setMarkerView(mv);
+        lineChart.setDescriptionPosition(1600f, 25f);
+        lineChart.setDrawBorders(false); //在折线图上添加边框
+        lineChart.setDrawGridBackground(false); //表格颜色
+        lineChart.setGridBackgroundColor(Color.GRAY & 0x70FFFFFF); //表格的颜色，设置一个透明度
+        lineChart.setTouchEnabled(true); //可点击
+        lineChart.setDragEnabled(false);  //可拖拽
+        lineChart.setScaleEnabled(false);  //可缩放
+        lineChart.setPinchZoom(false);
+        lineChart.setBackgroundColor(Color.parseColor("#f9f9f9")); //设置背景颜色
+
+        lineChart.setData(lineData);
+        lineData.setDrawValues(false);
+        Legend mLegend = lineChart.getLegend(); //设置标示，就是那个一组y的value的
+        mLegend.setForm(Legend.LegendForm.SQUARE); //样式
+        mLegend.setFormSize(8f); //字体
+        mLegend.setTextColor(Color.GRAY); //颜色
+        XAxis xAxis = lineChart.getXAxis();  //x轴的标示
+        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM); //x轴位置
+        xAxis.setTextColor(Color.GRAY);    //字体的颜色
+        xAxis.setTextSize(10f); //字体大小
+        xAxis.setGridColor(Color.GRAY);//网格线颜色
+        xAxis.setDrawGridLines(false); //不显示网格线
+        xAxis.setLabelsToSkip(0);
+        YAxis axisLeft = lineChart.getAxisLeft(); //y轴左边标示
+        YAxis axisRight = lineChart.getAxisRight(); //y轴右边标示
+        axisLeft.setTextColor(Color.GRAY); //字体颜色
+        axisLeft.setTextSize(10f); //字体大小
+        axisLeft.setStartAtZero(false);
+        //axisLeft.setAxisMaxValue(800f); //最大值
+        axisLeft.setLabelCount(6, false); //显示格数
+        axisLeft.resetAxisMaxValue();    //重新设置Y轴坐标最大为多少，自动调整
+        axisLeft.resetAxisMinValue();    //重新设置Y轴坐标，自动调整
         axisLeft.setGridColor(Color.GRAY); //网格线颜色
 
         axisRight.setDrawAxisLine(false);

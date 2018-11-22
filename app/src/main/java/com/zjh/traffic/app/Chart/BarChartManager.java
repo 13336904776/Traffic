@@ -46,9 +46,7 @@ public class BarChartManager {
         return barData;
     }
 
-    public static void initDataStyle(final BarChart barChart, BarData barData, final String Description, Context context) {
-        //设置图表的描述
-        barChart.setDescription(Description);
+    public static void initDataStyle(final BarChart barChart, BarData barData, Context context) {
         barChart.setDescriptionPosition(1600f, 25f);
         //字的颜色
         barChart.setDescriptionColor(Color.BLACK);
@@ -82,7 +80,6 @@ public class BarChartManager {
         barChart.setOnChartValueSelectedListener(new OnChartValueSelectedListener() {
             @Override
             public void onValueSelected(Entry entry, int i, Highlight highlight) {
-                barChart.setDescription(Description + ":"+entry.getVal());
             }
 
             @Override
