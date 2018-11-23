@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import com.zjh.traffic.R;
 import com.zjh.traffic.app.Adapter.ViewPagerAdapter_fragment;
 import com.zjh.traffic.app.Fragment.ChildFragment.AirQualityFragment;
+import com.zjh.traffic.app.Fragment.ChildFragment.DataAnalysisItemFragment1;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,13 +46,13 @@ public class DataAnalysisFragment extends Fragment {
         viewPager = view.findViewById(R.id.viewPager);
         fragment = new ArrayList<>();
         title = new ArrayList<>();
-        fragment.add(new AirQualityFragment());
-        fragment.add(new AirQualityFragment());
-        fragment.add(new AirQualityFragment());
-        fragment.add(new AirQualityFragment());
-        fragment.add(new AirQualityFragment());
-        fragment.add(new AirQualityFragment());
-        fragment.add(new AirQualityFragment());
+        fragment.add(new DataAnalysisItemFragment1());
+        fragment.add(new DataAnalysisItemFragment1());
+        fragment.add(new DataAnalysisItemFragment1());
+        fragment.add(new DataAnalysisItemFragment1());
+        fragment.add(new DataAnalysisItemFragment1());
+        fragment.add(new DataAnalysisItemFragment1());
+        fragment.add(new DataAnalysisItemFragment1());
         title.add("");
         title.add("");
         title.add("");

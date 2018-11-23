@@ -16,7 +16,7 @@
         android:layout_width="match_parent"
         android:layout_height="20dp"
         android:layout_alignParentBottom="true"
-        android:layout_margin="40dp"
+        android:layout_marginBottom="5dp"
         app:tabBackground="@drawable/tab_background2"
         app:tabIndicatorHeight="0dp"
         app:tabMaxWidth="20dp" />
