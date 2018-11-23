@@ -15,6 +15,8 @@ import com.zjh.traffic.R;
 import com.zjh.traffic.app.Adapter.ViewPagerAdapter_fragment;
 import com.zjh.traffic.app.Fragment.ChildFragment.AirQualityFragment;
 import com.zjh.traffic.app.Fragment.ChildFragment.DataAnalysisItemFragment1;
+import com.zjh.traffic.app.Fragment.ChildFragment.DataAnalysisItemFragment2;
+import com.zjh.traffic.app.Fragment.ChildFragment.DataAnalysisItemFragment3;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -47,12 +49,12 @@ public class DataAnalysisFragment extends Fragment {
         fragment = new ArrayList<>();
         title = new ArrayList<>();
         fragment.add(new DataAnalysisItemFragment1());
-        fragment.add(new DataAnalysisItemFragment1());
-        fragment.add(new DataAnalysisItemFragment1());
-        fragment.add(new DataAnalysisItemFragment1());
-        fragment.add(new DataAnalysisItemFragment1());
-        fragment.add(new DataAnalysisItemFragment1());
-        fragment.add(new DataAnalysisItemFragment1());
+        fragment.add(new DataAnalysisItemFragment2());
+        fragment.add(new DataAnalysisItemFragment3());
+        fragment.add(new DataAnalysisItemFragment3());
+        fragment.add(new DataAnalysisItemFragment3());
+        fragment.add(new DataAnalysisItemFragment3());
+        fragment.add(new DataAnalysisItemFragment3());
         title.add("");
         title.add("");
         title.add("");

@@ -86,11 +86,11 @@ public class PieChartManager {
         //是否在图上显示数值
         dataset.setDrawValues(true);
         //文字的大小
-        dataset.setValueTextSize(12);
+        dataset.setValueTextSize(10);
         //文字的颜色
         dataset.setValueTextColor(Color.BLACK);
         //文字的样式
-        dataset.setValueTypeface(Typeface.DEFAULT_BOLD);
+        dataset.setValueTypeface(Typeface.DEFAULT);
         //设置每条之前的间隙
         dataset.setSliceSpace(5f);           //设置饼状Item之间的间隙
         //设置饼状Item被选中时变化的距离
