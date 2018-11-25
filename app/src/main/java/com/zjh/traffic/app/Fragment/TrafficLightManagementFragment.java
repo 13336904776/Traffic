@@ -1,6 +1,8 @@
 package com.zjh.traffic.app.Fragment;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -22,6 +24,7 @@ import com.zjh.traffic.app.Adapter.MyBaseAdapter;
 import com.zjh.traffic.app.Application.App;
 import com.zjh.traffic.app.Bean.tableListBean;
 import com.zjh.traffic.app.Callback.OnResponseListener;
+import com.zjh.traffic.app.Dialog.LightSettingsDialog;
 import com.zjh.traffic.app.Request.GetTrafficLightConfigActionRequest;
 
 import java.util.ArrayList;
@@ -73,7 +76,7 @@ public class TrafficLightManagementFragment extends Fragment {
         tableList = view.findViewById(R.id.tableList);
         myBaseAdapter = new MyBaseAdapter<tableListBean>(listData, R.layout.item_table_list) {
             @Override
-            public void bindView(ViewHolder holder, tableListBean obj) {
+            public void bindView(final ViewHolder holder, tableListBean obj) {
                 holder.setText(R.id.TrafficLightId, obj.getTrafficLightId() + "");
                 holder.setText(R.id.redLightTime, obj.getRedLightTime() + "");
                 holder.setText(R.id.yellowLightTime, obj.getYellowLightTime() + "");
@@ -86,6 +89,14 @@ public class TrafficLightManagementFragment extends Fragment {
                 holder.setOnClickListener(R.id.btn_setting, new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        List<Integer> list = new ArrayList<>();
+                        list.add(listData.get(holder.getItemPosition()).getTrafficLightId());
+                        if (getFragmentManager() != null) {
+                            LightSettingsDialog lightSettingsDialog = new LightSettingsDialog(list);
+                            lightSettingsDialog.setTargetFragment(TrafficLightManagementFragment.this, 0);
+                            lightSettingsDialog.show(getFragmentManager(), "LightSettings");
+                        }
+
                     }
                 });
             }
@@ -111,6 +122,18 @@ public class TrafficLightManagementFragment extends Fragment {
 
         @Override
         public void onNothingSelected(AdapterView<?> parent) {
+        }
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == Activity.RESULT_OK) {
+            switch (requestCode) {
+                case 0:
+                    upData();
+                    break;
+            }
         }
     }
 
