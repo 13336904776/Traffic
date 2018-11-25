@@ -25,6 +25,7 @@ import com.zjh.traffic.app.Callback.OnResponseListener;
 import com.zjh.traffic.app.Request.GetTrafficLightConfigActionRequest;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -90,8 +91,11 @@ public class TrafficLightManagementFragment extends Fragment {
             }
         };
         listBeans = new ArrayList<>();
-        for (int i = 1; i <= 5; i++)
-            listBeans.add(new tableListBean(i, 10, 8, 8));
+        listBeans.add(new tableListBean(1, 10, 5, 2));
+        listBeans.add(new tableListBean(2, 45, 53, 3));
+        listBeans.add(new tableListBean(3, 2, 8, 6));
+        listBeans.add(new tableListBean(4, 50, 10, 1));
+        listBeans.add(new tableListBean(5, 7, 6, 4));
         for (int i = 0; i < listBeans.size(); i++)
             myBaseAdapter.add(listBeans.get(i));
         tableList.setAdapter(myBaseAdapter);
@@ -118,13 +122,13 @@ public class TrafficLightManagementFragment extends Fragment {
                 for (int i = 1; i <= 5; i++) {
                     if (i != 1) {
                         try {
-                            Thread.sleep(100);
+                            Thread.sleep(300);
                         } catch (InterruptedException e) {
                             e.printStackTrace();
                         }
                     }
                     final int finalI = i;
-                    new GetTrafficLightConfigActionRequest().setParams(new Object[]{i + "", App.getUserName()})
+                    new GetTrafficLightConfigActionRequest().setParams(new Object[]{String.valueOf(i), App.getUserName()})
                             .sendRequest(new OnResponseListener() {
                                 @Override
                                 public void onResponse(Object result) {
@@ -157,17 +161,88 @@ public class TrafficLightManagementFragment extends Fragment {
                         for (int i = listBeans.size() - 1; i >= 0; i--)
                             myBaseAdapter.add(listBeans.get(i));
                     } else if (sort.equals(list.get(2))) {
-
+                        int[] RedLightTime = new int[listBeans.size()];
+                        for (int i = 0; i < listBeans.size(); i++)
+                            RedLightTime[i] = listBeans.get(i).getRedLightTime();
+                        RedLightTime = sort(RedLightTime, true);
+                        for (int i = 0; i < RedLightTime.length; i++)
+                            myBaseAdapter.add(listBeans.get(RedLightTime[i]));
                     } else if (sort.equals(list.get(3))) {
-
+                        int[] RedLightTime = new int[listBeans.size()];
+                        for (int i = 0; i < listBeans.size(); i++)
+                            RedLightTime[i] = listBeans.get(i).getRedLightTime();
+                        RedLightTime = sort(RedLightTime, false);
+                        for (int i = 0; i < RedLightTime.length; i++)
+                            myBaseAdapter.add(listBeans.get(RedLightTime[i]));
                     } else if (sort.equals(list.get(4))) {
-
+                        int[] GreenLightTime = new int[listBeans.size()];
+                        for (int i = 0; i < listBeans.size(); i++)
+                            GreenLightTime[i] = listBeans.get(i).getGreenLightTime();
+                        GreenLightTime = sort(GreenLightTime, true);
+                        for (int i = 0; i < GreenLightTime.length; i++)
+                            myBaseAdapter.add(listBeans.get(GreenLightTime[i]));
                     } else if (sort.equals(list.get(5))) {
-
+                        int[] GreenLightTime = new int[listBeans.size()];
+                        for (int i = 0; i < listBeans.size(); i++)
+                            GreenLightTime[i] = listBeans.get(i).getGreenLightTime();
+                        GreenLightTime = sort(GreenLightTime, false);
+                        for (int i = 0; i < GreenLightTime.length; i++)
+                            myBaseAdapter.add(listBeans.get(GreenLightTime[i]));
                     } else if (sort.equals(list.get(6))) {
-
+                        int[] YellowLightTime = new int[listBeans.size()];
+                        for (int i = 0; i < listBeans.size(); i++)
+                            YellowLightTime[i] = listBeans.get(i).getYellowLightTime();
+                        YellowLightTime = sort(YellowLightTime, true);
+                        for (int i = 0; i < YellowLightTime.length; i++)
+                            myBaseAdapter.add(listBeans.get(YellowLightTime[i]));
+                    } else if (sort.equals(list.get(7))) {
+                        int[] YellowLightTime = new int[listBeans.size()];
+                        for (int i = 0; i < listBeans.size(); i++)
+                            YellowLightTime[i] = listBeans.get(i).getYellowLightTime();
+                        YellowLightTime = sort(YellowLightTime, false);
+                        for (int i = 0; i < YellowLightTime.length; i++)
+                            myBaseAdapter.add(listBeans.get(YellowLightTime[i]));
                     }
             }
         }
     };
+
+    /**
+     * is true升序 false降序
+     *
+     * @param array
+     * @param is
+     * @return
+     */
+    private int[] sort(int[] array, Boolean is) {
+        int[] id = new int[]{0, 1, 2, 3, 4};
+        if (is)
+            for (int i = 0; i < array.length - 1; i++) {
+                for (int j = i + 1; j < array.length; j++) {
+                    if (array[i] > array[j]) {
+                        int temp1 = array[i];
+                        int temp2 = id[i];
+                        array[i] = array[j];
+                        array[j] = temp1;
+                        id[i] = id[j];
+                        id[j] = temp2;
+                    }
+                }
+            }
+        else
+            for (int i = 0; i < array.length - 1; i++) {
+                for (int j = i + 1; j < array.length; j++) {
+                    if (array[i] < array[j]) {
+                        int temp1 = array[i];
+                        int temp2 = id[i];
+                        array[i] = array[j];
+                        array[j] = temp1;
+                        id[i] = id[j];
+                        id[j] = temp2;
+                    }
+                }
+            }
+
+        return id;
+    }
 }
