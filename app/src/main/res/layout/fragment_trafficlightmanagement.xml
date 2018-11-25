@@ -50,7 +50,7 @@
 
     <ListView
         android:id="@+id/tableList"
-        android:layout_width="wrap_content"
+        android:layout_width="488dp"
         android:layout_height="wrap_content"
         android:cacheColorHint="@android:color/transparent"
         android:divider="@null"
