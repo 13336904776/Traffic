@@ -1,24 +1,24 @@
 package com.zjh.traffic.app.Bean;
 
 public class tableListBean {
-    private int roadId;
+    private int TrafficLightId;
     private int redLightTime;
     private int yellowLightTime;
     private int greenLightTime;
 
-    public tableListBean(int roadId, int redLightTime, int yellowLightTime, int greenLightTime) {
-        this.roadId = roadId;
+    public tableListBean(int trafficLightId, int redLightTime, int yellowLightTime, int greenLightTime) {
+        TrafficLightId = trafficLightId;
         this.redLightTime = redLightTime;
         this.yellowLightTime = yellowLightTime;
         this.greenLightTime = greenLightTime;
     }
 
-    public int getRoadId() {
-        return roadId;
+    public int getTrafficLightId() {
+        return TrafficLightId;
     }
 
-    public void setRoadId(int roadId) {
-        this.roadId = roadId;
+    public void setTrafficLightId(int trafficLightId) {
+        TrafficLightId = trafficLightId;
     }
 
     public int getRedLightTime() {
