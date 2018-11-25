@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
+    android:gravity="center"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
@@ -41,26 +42,19 @@
 
     </LinearLayout>
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dip"
-        android:background="#A7A5A5" />
 
     <include
         android:id="@+id/table_title"
-        layout="@layout/item_table_list" />
+        layout="@layout/item_table_head" />
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1.5dip"
-        android:background="#686867" />
 
     <ListView
         android:id="@+id/tableList"
-        android:layout_width="fill_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:cacheColorHint="@android:color/transparent"
-        android:divider="#B4B3B3"
+        android:divider="@null"
+        android:layout_centerVertical="true"
         android:dividerHeight="1.0dip"
         android:fadingEdge="none"
         android:scrollbars="none" />
