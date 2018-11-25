@@ -9,9 +9,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.Spinner;
 
 import com.zjh.traffic.R;
+import com.zjh.traffic.app.Adapter.MyBaseAdapter;
+import com.zjh.traffic.app.Bean.tableListBean;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,6 +26,10 @@ public class TrafficLightManagementFragment extends Fragment {
     private Spinner spinner;
     private List<String> list;
     private ArrayAdapter<String> arrayAdapter;
+    private MyBaseAdapter<tableListBean> myBaseAdapter;
+    private ListView tableList;
+    private List<tableListBean> listData;
+
 
     @Nullable
     @Override
@@ -51,6 +58,16 @@ public class TrafficLightManagementFragment extends Fragment {
         arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(arrayAdapter);
         spinner.setOnItemSelectedListener(new SelectedListener());
+        listData = new ArrayList<>();
+        tableList = view.findViewById(R.id.tableList);
+        myBaseAdapter = new MyBaseAdapter<tableListBean>(listData, R.layout.item_table_list) {
+            @Override
+            public void bindView(ViewHolder holder, tableListBean obj) {
+
+            }
+        };
+        tableList.setAdapter(myBaseAdapter);
+
     }
 
     private class SelectedListener implements AdapterView.OnItemSelectedListener {
