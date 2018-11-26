@@ -45,7 +45,7 @@ public class GetTrafficLightConfigActionRequest extends BaseRequest {
                         Integer.parseInt(new JSONObject(response).getString("GreenTime")));
                 return tableListBean;
             }
-        } catch (JSONException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         tableListBean = new tableListBean(1, 25, 5, 55);

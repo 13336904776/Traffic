@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.ListView;
 import android.widget.Spinner;
@@ -34,7 +35,7 @@ import java.util.List;
 /**
  * 红绿灯管理
  */
-public class TrafficLightManagementFragment extends Fragment {
+public class TrafficLightManagementFragment extends Fragment implements View.OnClickListener {
     private Spinner spinner;
     private List<String> list;
     private String sort;//记录排序
@@ -43,6 +44,10 @@ public class TrafficLightManagementFragment extends Fragment {
     private ListView tableList;
     private List<tableListBean> listData;
     private List<tableListBean> listBeans;
+    private Button btn_Search, btn_AllSettings;
+    private List<Integer> select_ID;
+    private Boolean[] CompoundButton_isChecked;//记录复选按钮状态
+    private int[] sortLightTime;//记录id排序
 
     @Nullable
     @Override
@@ -53,7 +58,9 @@ public class TrafficLightManagementFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        CompoundButton_isChecked = new Boolean[]{false, false, false, false, false};
         initView(view);
+        upData();
     }
 
     private void initView(View view) {
@@ -72,6 +79,10 @@ public class TrafficLightManagementFragment extends Fragment {
         arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(arrayAdapter);
         spinner.setOnItemSelectedListener(new SelectedListener());
+        btn_Search = view.findViewById(R.id.btn_Search);
+        btn_AllSettings = view.findViewById(R.id.btn_AllSettings);
+        btn_Search.setOnClickListener(this);
+        btn_AllSettings.setOnClickListener(this);
         listData = new ArrayList<>();
         tableList = view.findViewById(R.id.tableList);
         myBaseAdapter = new MyBaseAdapter<tableListBean>(listData, R.layout.item_table_list) {
@@ -84,6 +95,13 @@ public class TrafficLightManagementFragment extends Fragment {
                 holder.setOnCheckedChangeListener(R.id.checkbox, new CompoundButton.OnCheckedChangeListener() {
                     @Override
                     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                        select_ID = new ArrayList<>();
+                        CompoundButton_isChecked[sortLightTime[holder.getItemPosition()]] = isChecked;
+                        Log.i("zjh", sortLightTime[holder.getItemPosition()]
+                                + "" + CompoundButton_isChecked[sortLightTime[holder.getItemPosition()]] + "");
+                        for (int i = 1; i <= CompoundButton_isChecked.length; i++)
+                            if (CompoundButton_isChecked[i - 1])
+                                select_ID.add(i);
                     }
                 });
                 holder.setOnClickListener(R.id.btn_setting, new View.OnClickListener() {
@@ -112,12 +130,24 @@ public class TrafficLightManagementFragment extends Fragment {
         tableList.setAdapter(myBaseAdapter);
     }
 
+    @Override
+    public void onClick(View v) {
+        if (v.getId() == R.id.btn_Search) {
+            upData();
+        } else if (v.getId() == R.id.btn_AllSettings) {
+            if (getFragmentManager() != null) {
+                LightSettingsDialog lightSettingsDialog = new LightSettingsDialog(select_ID);
+                lightSettingsDialog.setTargetFragment(TrafficLightManagementFragment.this, 0);
+                lightSettingsDialog.show(getFragmentManager(), "LightSettings");
+            }
+        }
+    }
+
     private class SelectedListener implements AdapterView.OnItemSelectedListener {
 
         @Override
         public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
             sort = list.get(position);//更改排序规则
-            upData();
         }
 
         @Override
@@ -178,53 +208,55 @@ public class TrafficLightManagementFragment extends Fragment {
                 case 200:
                     myBaseAdapter.clear();
                     if (sort.equals(list.get(0))) {
+                        sortLightTime = new int[]{0, 1, 2, 3, 4};
                         for (int i = 0; i < listBeans.size(); i++)
                             myBaseAdapter.add(listBeans.get(i));
                     } else if (sort.equals(list.get(1))) {
+                        sortLightTime = new int[]{4, 3, 2, 1, 0};
                         for (int i = listBeans.size() - 1; i >= 0; i--)
                             myBaseAdapter.add(listBeans.get(i));
                     } else if (sort.equals(list.get(2))) {
                         int[] RedLightTime = new int[listBeans.size()];
                         for (int i = 0; i < listBeans.size(); i++)
                             RedLightTime[i] = listBeans.get(i).getRedLightTime();
-                        RedLightTime = sort(RedLightTime, true);
-                        for (int i = 0; i < RedLightTime.length; i++)
-                            myBaseAdapter.add(listBeans.get(RedLightTime[i]));
+                        sortLightTime = sort(RedLightTime, true);
+                        for (int i = 0; i < sortLightTime.length; i++)
+                            myBaseAdapter.add(listBeans.get(sortLightTime[i]));
                     } else if (sort.equals(list.get(3))) {
                         int[] RedLightTime = new int[listBeans.size()];
                         for (int i = 0; i < listBeans.size(); i++)
                             RedLightTime[i] = listBeans.get(i).getRedLightTime();
-                        RedLightTime = sort(RedLightTime, false);
-                        for (int i = 0; i < RedLightTime.length; i++)
-                            myBaseAdapter.add(listBeans.get(RedLightTime[i]));
+                        sortLightTime = sort(RedLightTime, false);
+                        for (int i = 0; i < sortLightTime.length; i++)
+                            myBaseAdapter.add(listBeans.get(sortLightTime[i]));
                     } else if (sort.equals(list.get(4))) {
                         int[] GreenLightTime = new int[listBeans.size()];
                         for (int i = 0; i < listBeans.size(); i++)
                             GreenLightTime[i] = listBeans.get(i).getGreenLightTime();
-                        GreenLightTime = sort(GreenLightTime, true);
-                        for (int i = 0; i < GreenLightTime.length; i++)
-                            myBaseAdapter.add(listBeans.get(GreenLightTime[i]));
+                        sortLightTime = sort(GreenLightTime, true);
+                        for (int i = 0; i < sortLightTime.length; i++)
+                            myBaseAdapter.add(listBeans.get(sortLightTime[i]));
                     } else if (sort.equals(list.get(5))) {
                         int[] GreenLightTime = new int[listBeans.size()];
                         for (int i = 0; i < listBeans.size(); i++)
                             GreenLightTime[i] = listBeans.get(i).getGreenLightTime();
-                        GreenLightTime = sort(GreenLightTime, false);
-                        for (int i = 0; i < GreenLightTime.length; i++)
-                            myBaseAdapter.add(listBeans.get(GreenLightTime[i]));
+                        sortLightTime = sort(GreenLightTime, false);
+                        for (int i = 0; i < sortLightTime.length; i++)
+                            myBaseAdapter.add(listBeans.get(sortLightTime[i]));
                     } else if (sort.equals(list.get(6))) {
                         int[] YellowLightTime = new int[listBeans.size()];
                         for (int i = 0; i < listBeans.size(); i++)
                             YellowLightTime[i] = listBeans.get(i).getYellowLightTime();
-                        YellowLightTime = sort(YellowLightTime, true);
-                        for (int i = 0; i < YellowLightTime.length; i++)
-                            myBaseAdapter.add(listBeans.get(YellowLightTime[i]));
+                        sortLightTime = sort(YellowLightTime, true);
+                        for (int i = 0; i < sortLightTime.length; i++)
+                            myBaseAdapter.add(listBeans.get(sortLightTime[i]));
                     } else if (sort.equals(list.get(7))) {
                         int[] YellowLightTime = new int[listBeans.size()];
                         for (int i = 0; i < listBeans.size(); i++)
                             YellowLightTime[i] = listBeans.get(i).getYellowLightTime();
-                        YellowLightTime = sort(YellowLightTime, false);
-                        for (int i = 0; i < YellowLightTime.length; i++)
-                            myBaseAdapter.add(listBeans.get(YellowLightTime[i]));
+                        sortLightTime = sort(YellowLightTime, false);
+                        for (int i = 0; i < sortLightTime.length; i++)
+                            myBaseAdapter.add(listBeans.get(sortLightTime[i]));
                     }
             }
         }
