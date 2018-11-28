@@ -3,6 +3,7 @@ package com.zjh.traffic.app.Dialog;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -20,8 +21,12 @@ import com.zjh.traffic.R;
 import com.zjh.traffic.app.Application.App;
 import com.zjh.traffic.app.Callback.OnResponseListener;
 import com.zjh.traffic.app.Request.SetCarAccountRechargeRequest;
+import com.zjh.traffic.app.SQLite.DBManager;
+import com.zjh.traffic.app.Bean.RechargeRecordBean;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class RechargeDialog extends DialogFragment implements View.OnClickListener {
@@ -38,11 +43,13 @@ public class RechargeDialog extends DialogFragment implements View.OnClickListen
 
     private String Tag;
 
+    private DBManager dbManager;
+
     public RechargeDialog() {
     }
 
     @SuppressLint("ValidFragment")
-    public RechargeDialog(List<Integer> rechargeCarId, List<String> rechargePlate) {
+    public RechargeDialog(Context context, List<Integer> rechargeCarId, List<String> rechargePlate) {
         if (rechargeCarId != null && rechargePlate != null) {
             this.rechargeCarId = rechargeCarId;
             this.rechargePlate = rechargePlate;
@@ -52,6 +59,7 @@ public class RechargeDialog extends DialogFragment implements View.OnClickListen
             this.rechargePlate = new ArrayList<>();
             this.isRequest = new Boolean[0];
         }
+        dbManager = new DBManager(context);
     }
 
     @Nullable
@@ -66,6 +74,12 @@ public class RechargeDialog extends DialogFragment implements View.OnClickListen
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         initView(view);
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        dbManager.closeDB();
     }
 
     private void initView(View view) {
@@ -109,6 +123,7 @@ public class RechargeDialog extends DialogFragment implements View.OnClickListen
                 sendRequest(new OnResponseListener() {
                     int finalI = i;
 
+                    @SuppressLint("SimpleDateFormat")
                     @Override
                     public void onResponse(Object result) {
                         try {
@@ -116,6 +131,14 @@ public class RechargeDialog extends DialogFragment implements View.OnClickListen
                             if (finalI < rechargeCarId.size() - 1 && isRequest[++finalI] == null)
                                 upData(finalI);
                             else {
+                                ArrayList<RechargeRecordBean> list = new ArrayList<>();
+                                for (int i = 0; i < rechargePlate.size(); i++) {
+                                    list.add(new RechargeRecordBean(App.getUserName(), rechargePlate.get(i),
+                                            Integer.parseInt(rechargeMoney_ed.getText().toString()),
+                                            new SimpleDateFormat("yyyy.MM.dd HH:mm")
+                                                    .format(new Date())));
+                                }
+                                dbManager.add(list);
                                 progressDialog.dismiss();
                                 RechargeDialog.this.dismiss();
                                 String out = "";

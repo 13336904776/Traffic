@@ -89,7 +89,7 @@ public class AccountFragment extends Fragment {
                         rechargeCarId.add(CarId[holder.getItemPosition()]);
                         rechargePlate.add(plate[holder.getItemPosition()]);
                         if (getFragmentManager() != null) {
-                            RechargeDialog rechargeDialog = new RechargeDialog(rechargeCarId, rechargePlate);
+                            RechargeDialog rechargeDialog = new RechargeDialog(getContext(),rechargeCarId, rechargePlate);
                             rechargeDialog.setTargetFragment(AccountFragment.this, 0);
                             rechargeDialog.show(getFragmentManager(), "Recharge");
                         }

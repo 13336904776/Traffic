@@ -68,7 +68,7 @@ public class MainActivity extends BaseActivity implements AdapterView.OnItemClic
         batchRecharge.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                RechargeDialog rechargeDialog = new RechargeDialog(App.getRechargeCarId(), App.getRechargePlate());
+                RechargeDialog rechargeDialog = new RechargeDialog(MainActivity.this, App.getRechargeCarId(), App.getRechargePlate());
                 rechargeDialog.setTargetFragment(accountFragment, 0);
                 rechargeDialog.show(accountFragment.getFragmentManager(), "Recharge");
             }
